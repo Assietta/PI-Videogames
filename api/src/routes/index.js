@@ -3,10 +3,10 @@ const { videogamesRouter } = require('./videogamesRoutes');
 
 const router = Router();
 
-// router.use("/", pokemonRouter);
+
 router.use("/", videogamesRouter);
 router.use("/videogame", videogamesRouter);
-// router.use("/pokemon/:idPokemon", pokemonRouter);
+router.use("/videogame/:idvideogame", videogamesRouter);
 // router.use("/pokemon/name/:name", pokemonRouter);
 // router.use("/types", typesRouter);
 

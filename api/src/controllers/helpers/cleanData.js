@@ -5,6 +5,7 @@ const cleanData = (data) => {
   const imagen = data.background_image || '';
   const fechaLanzamiento = data.released || '';
   const rating = data.rating || '';
+  const genero = data.genres && Array.isArray(data.genres) ? data.genres.map(g => g.name) : [];
 
   return {
     nombre,
@@ -12,7 +13,8 @@ const cleanData = (data) => {
     plataformas,
     imagen,
     fechaLanzamiento,
-    rating
+    rating,
+    genero
   };
 };
 
