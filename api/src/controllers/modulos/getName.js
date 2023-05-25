@@ -1,26 +1,27 @@
-// const axios = require('axios')
-// const { pokemon } = require('../../db')
-// const { cleanData } = require('../helpers/cleanData')
+require('dotenv').config();
+const axios = require("axios");
+const { cleanData } = require('../helpers/cleanData');
+const { Videogame } = require('../../db');
+const { YOUR_API_KEY } = process.env;
 
-// const getName = async (name) => {
-//   try {
-//     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`);
-//     const data = response.data;
-//     const cleanedPokemon = cleanData(data);
-//     return [cleanedPokemon];
-//   } catch (error) {
-//     // Si el Pokémon no se encuentra en la API, buscarlo en la base de datos local
-//     // Agregar un comentario indicando que la búsqueda se está realizando en la API antes de buscar en la base de datos
-//     const pokemonFromDb = await pokemon.getName(name.toLowerCase());
-//     if (pokemonFromDb) {
-//       return [pokemonFromDb];
-//     } else {
-//       // Si no se encuentra en la base de datos tampoco, retornar un mensaje de error adecuado
-//       return [{ message: `No se encontró ningún Pokémon con el nombre ${name}` }];
-//     }
-//   }
-// };
+const getName = async (name) => {
+  const databaseVideogame = await Videogame.findOne({ where: { name } });
 
-// module.exports = {
-//   getName,
-// };
+  if (databaseVideogame) {
+    return databaseVideogame;
+  } else {
+    const apiVideogameData = (await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${YOUR_API_KEY}`)).data.results;
+    
+    if (apiVideogameData.length > 0) {
+      const gameData = apiVideogameData[0];
+      const cleanedData = cleanData(gameData);
+      return cleanedData;
+    } else {
+      return null;
+    }
+  }
+};
+
+module.exports = {
+  getName,
+};

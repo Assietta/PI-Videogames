@@ -4,7 +4,7 @@ const videogamesRouter = Router();
 
 
 
-const {getVideogameHandler, getIdVideogameHandler} = require ("../handlers/handlers")
+const {getVideogameHandler, getIdVideogameHandler, getNameHandler} = require ("../handlers/handlers")
 
 videogamesRouter.get("/", (req, res) => {
     res.send("estoy en videogames");
@@ -16,7 +16,7 @@ videogamesRouter.get("/", (req, res) => {
 
 videogamesRouter.get("/videogame", getVideogameHandler);
 videogamesRouter.get("/videogame/:idVideogame", getIdVideogameHandler);
-
+videogamesRouter.get("/videogame/name/:name", getNameHandler);
 
 
 
