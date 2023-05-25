@@ -1,7 +1,7 @@
 require('dotenv').config();
 const axios = require("axios")
 const { cleanData } = require('../helpers/cleanData');
-const Videogame = require('../../db')
+const {Videogame} = require('../../db')
 const {YOUR_API_KEY} = process.env;
 
 
