@@ -1,0 +1,47 @@
+body{
+  background-color: #151515;
+}
+
+.acomodo {
+  margin-left: 50px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: yellow;
+  }
+  
+  .search-bar {
+    margin-top: 50px;
+    flex-grow: 1;
+    background-color: aliceblue;
+  }
+  
+  .filter {
+    display: flex;
+    background-color: aliceblue;
+  }
+  
+  
+ 
+  
+  .loadinggif {
+    background-repeat: no-repeat;
+    margin-left: 720px;
+    margin-top: 100px;
+  }
+
+  .textogif {
+    margin-left: 860px;
+  }
+
+  .filterdb {
+    min-width: 20%;
+    background-color: yellow;
+  }
+
+  .filtertipos {
+   background-color: yellow;
+  }
