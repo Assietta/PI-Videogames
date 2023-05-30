@@ -11,12 +11,8 @@ const Home = () => {
 //   const [selectedSort, setSelectedSort] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
-      await dispatch(getVideogames());
-      await dispatch(getGenres());
-      // setLoading(false);
-    }
-    fetchData();
+    getVideogames()
+    getGenres()
   }, [dispatch]);
 
   return (

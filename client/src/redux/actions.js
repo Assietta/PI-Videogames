@@ -34,6 +34,7 @@ export function getGenres(){
 }
 
 export const getName = (name) => {
+    console.log(name)
     return {
         type: GET_NAME,
         payload: name,

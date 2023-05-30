@@ -1,10 +1,10 @@
-import { GET_VIDEOGAMES, GET_GENRES, GET_NAME, GET_ID } from "./actions";
+import { GET_VIDEOGAMES, GET_GENRES, GET_NAME, GET_ID} from "./actions";
 
 const initialState = {
   videogames: [],
   genres: [],
   videogamesID: {},
-  filteredVideogames: [], // Inicializar como un array vacío
+  allgames: [], // Inicializar como un array vacío
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -13,7 +13,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         videogames: action.payload,
-        filteredVideogames: action.payload, // Incluir aquí también
+        allgames: action.payload, // Incluir aquí también
       };
     case GET_GENRES:
       return {
@@ -21,11 +21,11 @@ const rootReducer = (state = initialState, action) => {
         genres: action.payload,
       };
     case GET_NAME:
-      const name = action.payload
+      const name = action.payload.toLowerCase();
       return {
         ...state,
-        filteredVideogames: state.videogames.filter((videogames) =>
-          videogames.name.includes(name)
+        videogames: state.allgames.filter((videogame) =>
+          videogame && videogame.nombre && videogame.nombre.toLowerCase().includes(name)
         ),
       };
     case GET_ID:
