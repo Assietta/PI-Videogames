@@ -20,9 +20,9 @@ const getAllVideogame = async () => {
     allApiVideogame = [...allApiVideogame, ...apiVideogameCleaned];
     totalGames += apiVideogameCleaned.length;
     page++;
-  } while (totalGames < 50);
+  } while (totalGames < 100);
 
-  return [...databasevideogame, ...allApiVideogame.slice(0, 50)];
+  return [...databasevideogame, ...allApiVideogame.slice(0, 100)];
 };
 
 module.exports = { getAllVideogame, cleanData };

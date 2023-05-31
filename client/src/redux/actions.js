@@ -4,6 +4,8 @@ export const GET_VIDEOGAMES = "GET_VIDEOGAMES"
 export const GET_GENRES = 'GET_GENRES'
 export const GET_NAME = 'GET_NAME'
 export const GET_ID = 'GET_ID'
+export const FILTER_BY_CREATED = 'FILTER_BY_CREATED'
+export const FILTER_BY_GENRE = 'FILTER_BY_GENRE'
 
 export function getVideogames(){
     return async function (dispatch){
@@ -56,3 +58,27 @@ export function getID(id){
         }
     }
 }
+
+export function filterByCreated(isDB) {
+    return {
+      type: FILTER_BY_CREATED,
+      payload: isDB
+    }
+  }
+
+
+  export const filterByGenre = (selectedGenres) => {
+    console.log("selectedGenres", selectedGenres);
+    return {
+      type: FILTER_BY_GENRE,
+      payload: selectedGenres,
+      filterFunction: (videogames) => {
+        console.log("videogames", videogames);
+        const filteredvideogames = selectedGenres.every((selectedGenre) => {
+          return videogames.generos.includes(selectedGenre);
+        });
+        console.log("filteredvideogames", filteredvideogames);
+        return filteredvideogames;
+      },
+    };
+  };

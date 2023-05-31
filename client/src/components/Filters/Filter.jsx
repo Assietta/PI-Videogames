@@ -1,63 +1,62 @@
-import { filterByType } from '../../redux/actions';
+import { filterByGenre } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
-import style from './Filters.module.css'
+import style from './Filters.module.css';
 
 const Filter = () => {
   const dispatch = useDispatch();
-  const [selectedgenres, setSelectedgenres] = useState([]);
+  const [selectedGenres, setselectedGenres] = useState([]);
   const [selectedCount, setSelectedCount] = useState(0);
-  const [prevSelectedgenres, setPrevSelectedgenres] = useState([]);
+  const [prevselectedGenres, setPrevselectedGenres] = useState([]);
   const genres = useSelector((state) => state.genres);
 
-  
 
   useEffect(() => {
-    if (JSON.stringify(selectedgenres) !== JSON.stringify(prevSelectedgenres)) {
-      dispatch(filterByType(selectedgenres));
-      setPrevSelectedgenres(selectedgenres);
+    if (JSON.stringify(selectedGenres) !== JSON.stringify(prevselectedGenres)) {
+      dispatch(filterByGenre(selectedGenres));
+      setPrevselectedGenres(selectedGenres);
     }
-  }, [selectedgenres, prevSelectedgenres, dispatch]);
+  }, [selectedGenres, prevselectedGenres, dispatch]);
 
   const handleTypeChange = (event) => {
     const value = event.target.value;
     const isChecked = event.target.checked;
     const count = isChecked ? selectedCount + 1 : selectedCount - 1;
 
-    if (count <= 2) {
+    if (count <= 80) {
       setSelectedCount(count);
 
       if (isChecked) {
-        setSelectedgenres([...selectedgenres, value]);
+        setselectedGenres([...selectedGenres, value]);
       } else {
-        setSelectedgenres(selectedgenres.filter((type) => type !== value));
+        setselectedGenres(selectedGenres.filter((genres) => genres !== value));
       }
     } else {
       event.preventDefault();
     }
   };
 
-  
+
+
   return (
     <div>
-      <h3 className={style.texto3}>FILTRAR POR TIPO:</h3>
+      <h3 className={style.texto3}>FILTRAR POR Genero:</h3>
       <div className={style.tipos}>
-         {genres.map((type) => (
-           <label key={type} className={style.checkboxes}>
-             <input
-               type="checkbox"
-               name="type"
-               value={type}
-               checked={selectedgenres.includes(type)}
-               onChange={handleTypeChange}
-             />
-             <span className={style.checkboxText}>{type.charAt(0).toUpperCase() + type.slice(1)}</span>
-           </label>
-         ))}
-       </div>
+        {genres.map((genres) => ( 
+          <label key={genres} className={style.checkboxes}>
+            <input
+              type="checkbox"
+              name="type"
+              value={genres}
+              checked={selectedGenres.includes(genres)}
+              onChange={handleTypeChange}
+            />
+            <span className={style.checkboxText}>{genres.charAt(0).toUpperCase() + genres.slice(1)}</span>
+          </label>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default Filter;
-
