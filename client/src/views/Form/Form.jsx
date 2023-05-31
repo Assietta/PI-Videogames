@@ -13,8 +13,8 @@ const Form = () => {
     image: '',
     descripcion: '',
     plataformas: '',
-    fechaLanzamiento: '',
-    rating: '',
+    fechaLanzamiento: 'YYYY-MM-DD',
+    rating: '0.00',
     genero: [],
 });
 
@@ -62,6 +62,7 @@ const handleInputChange = (event) => {
   } else {
     setInput((prevInput) => ({ ...prevInput, [name]: value }));
   }
+  
 };
 
 
@@ -175,18 +176,21 @@ const handleSubmit = (event) => {
         <label htmlFor="image">Imagen: </label>
         <input type="url" name="image" value={input.image} onChange={handleInputChange} onBlur={handleInputChange}/>
             {errorMessages.image && <p>{errorMessages.image}</p>}   
-        <label htmlFor="descripcion">Descripcion: </label>
-        <input type="text" name="descripcion" value={input.descripcion} onChange={handleInputChange} onBlur={handleInputChange}/>
 
-        <label htmlFor="plataformas">Plataformas: </label>
-        <input type="text" name="plataformas" value={input.plataformas} onChange={handleInputChange} onBlur={handleInputChange}/>
-
+        
         <label htmlFor="fechalanzamiento">Fecha de Lanzamiento  (Formato YYYY-MM-DD): </label>
         <input type="text" name="fechaLanzamiento" value={input.fechaLanzamiento} onChange={handleInputChange} onBlur={handleInputChange}/>
             {errorMessages.fechaLanzamiento && <p>{errorMessages.fechaLanzamiento}</p>}
+
         <label htmlFor="rating">Rating: </label>
         <input type="number" name="rating" step="0.01" value={input.rating} onChange={handleInputChange} onBlur={handleInputChange}/>
             {errorMessages.rating && <p>{errorMessages.rating}</p>}
+
+        <label  htmlFor="descripcion">Descripcion: </label>
+        <input className={style.descripcion} type="text" name="descripcion" value={input.descripcion} onChange={handleInputChange} onBlur={handleInputChange}/>
+        
+        <label htmlFor="plataformas">Plataformas: </label>
+        <input type="text" name="plataformas" value={input.plataformas} onChange={handleInputChange} onBlur={handleInputChange}/>
 
         <label htmlFor="genre">Genero(s): </label>
         <div className={style.checktipes}>
@@ -206,6 +210,29 @@ const handleSubmit = (event) => {
 
         <button type="submit" id="submit-button">Crear Videogame</button>
       </form>
+      <div className={style.presentacion}>
+        <div className={style.card}>
+
+            <div className={style.front}>
+                <div className={style.imageContainer}>
+                    <img
+                        src={input.image}
+                        alt={input.image}
+                        className={style.image}
+                        />
+                </div>
+                    <h2 className={style.name}>{input.nombre}</h2>
+                </div>
+                <div>
+                    {input.genero.map((genre) => (
+                        <span key={genre} className={style.tipo}>
+                        {genre}
+                        </span>
+                    ))}
+                </div>
+                </div>
+            </div>
+
     </div>
   );
 };

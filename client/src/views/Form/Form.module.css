@@ -2,182 +2,157 @@
   display: flex;
 }
 
+.presentacion {
+  background-color: #4CAF50;
+  width: 500px;
+  height: 900px;
+}
+
 .formulario {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    justify-content: space-between;
-    flex: 8;
-    color: #fff;
-  }
-  
-  .formulario label {
-    margin-top: 10px;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .formulario input[type="text"],
-  .formulario input[type="url"],
-  .formulario input[type="number"],
-  .formulario select {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .formulario select {
-    height: 100px;
-  }
-  
-  .formulario button[type="submit"] {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .formulario button[type="submit"]:hover {
-    background-color: #3e8e41;
-  }
-  
-  label[for="image"] {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-
-  
-
-  /* Card.module.css */
-
-.card {
-  perspective: 1000px;
-  width: 300px;
-  height: 425px;
-  position: relative;
-  margin: 20px;
-  cursor: pointer;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  flex: 2;
-}
-
-
-.front {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-}
-
-.front {
-  background-color: #fff;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  justify-content: space-between;
+  flex: 8;
+  color: #fff;
 }
 
-.imageContainer {
-  width: 180px;
-  height: 180px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid #333;
-  border-radius: 50%;
-  margin-bottom: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-}
-
-.image {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover;
-}
-
-.name {
-  font-size: 24px;
+.formulario label {
+  margin-top: 10px;
+  margin-bottom: 5px;
   font-weight: bold;
+}
+
+.formulario input[type="text"],
+.formulario input[type="url"],
+.formulario input[type="number"],
+.formulario select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.formulario select {
+  height: 100px;
+}
+
+.formulario textarea[name="descripcion"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  resize: none;
+  width: 500px;
+  height: 300px;
+  text-align: left;
+  /* Alineación del texto a la izquierda */
+  padding-top: 0px;
+  /* Elimina el espacio superior */
+  margin-top: 0px;
+}
+
+.formulario button[type="submit"] {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.formulario button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+label[for="image"] {
+  display: flex;
   margin-bottom: 10px;
 }
 
-.types {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+
+
+
+.card {
+  border-radius: 25px;
+  margin-top: 20px;
+  margin-left: 50px;
+  height: 500px;
+  max-width: 400px;
+  width: 100%;
+  overflow: hidden;
+  background-color: #202020;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.tipo {
-  padding: 5px 10px;
-  margin: 5px;
-  font-size: 14px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #fff;
-  background-color: #333;
-  border-radius: 5px;
-}
-
-
-
-
-
-.stats {
+.front {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-color: #fff; /* Agregado */
-  padding: 10px; /* Agregado */
+  align-items: flex-start; /* Modificado */
 }
 
-.stat {
+.imageContainer {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  margin: 5px;
+  overflow: hidden;
   width: 100%;
-}
-
-.statName {
-  font-size: 14px; /* Ajustado */
-  font-weight: bold;
-  text-transform: uppercase;
-  color: black;
-}
-
-.statValue {
-  font-size: 18px; /* Ajustado */
-  font-weight: bold;
-  color: black;
-}
-
-.back {
+  height: 0;
+  padding-bottom: 75%; /* Proporción de aspecto para mantener una relación de aspecto 4:3 */
   position: relative;
-  margin-top: 500px;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  object-fit: cover;
+}
+
+.name {
+  margin-left: 10px;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+  font-size: 25px;
+  text-align: center;
+  margin-top: 10px;
+  color: white;
+}
+
+.tipo {
+  color: white;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Open Sans,Helvetica Neue,sans-serif;
+  display: inline-block;
+  margin: 4px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: #303030;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tipo:hover {
+  background-color: #505050;
+}
+
+.front .tipo {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border: 1px gray;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .card {
+    max-width: 100%;
+  }
 }

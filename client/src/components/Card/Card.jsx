@@ -13,13 +13,13 @@ export default function Card({ id, nombre, descripcion, plataformas, fechaLanzam
                   className={style.image}
                />
             </div>
-            <h2 className={style.name}>{nombre}</h2>
-         </div>
-         <div>
-            {genero.map((genero) => (
-               <span key={genero} className={style.tipo}>{genero}</span>
-            ))}
-         </div>
+               <h2 className={style.name}>{nombre}</h2>
+            </div>
+            <div>
+               {genero.map((genero) => (
+                  <span key={genero} className={style.tipo}>{genero}</span>
+               ))}
+            </div>
       </div>
       </Link>
    );
