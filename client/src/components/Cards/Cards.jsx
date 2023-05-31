@@ -2,7 +2,7 @@ import Card from '../Card/Card.jsx';
 import style from './Cards.module.css'
 import { useSelector, useDispatch } from "react-redux"
 import Paginado from '../Paginado/paginado.jsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 export default function Cards() { // eslint-disable-next-line
@@ -14,6 +14,10 @@ export default function Cards() { // eslint-disable-next-line
    const indexOfLastVideogame = currentPage * VideogamesPerPage
    const indexOfFirstVideogame = indexOfLastVideogame - VideogamesPerPage
    const currentVideogames = videogames.slice(indexOfFirstVideogame, indexOfLastVideogame)
+
+   useEffect(() => {
+      setCurrentPage(1); // Reiniciar la página actual a 1 al cambiar los filtros
+    }, [videogames]);
 
    const paginado = (pageNumber) => {
       setCurrentPage(pageNumber)
