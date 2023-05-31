@@ -4037,6 +4037,43 @@ const initialState = {
       "isDB": false
     }
   ], // Inicializar como un array vacío
+  plataformas: [
+    "PC",
+    "PlayStation 5",
+    "Xbox Series",
+    "Nintendo Switch",
+    "iOS",
+    "Android",
+    "macOS",
+    "Linux",
+    "Nintendo 3DS",
+    "Nintendo DS",
+    "Nintendo DSi",
+    "PlayStation 4",
+    "PlayStation 3",
+    "PlayStation 2",
+    "PlayStation",
+    "Xbox One",
+    "Xbox 360",
+    "Xbox",
+    "Wii U",
+    "Wii",
+    "GameCube",
+    "Nintendo 64",
+    "Game Boy Advance",
+    "Game Boy Color",
+    "Game Boy",
+    "SNES",
+    "NES",
+    "Classic Macintosh",
+    "Apple II",
+    "Commodore / Amiga",
+    "Atari",
+    "SEGA",
+    "3DO",
+    "Neo Geo"
+  ],
+  
 };
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {

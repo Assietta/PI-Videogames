@@ -6,6 +6,7 @@ import React, { useEffect, useState, useRef } from 'react';
 const Form = () => {
   const dispatch = useDispatch();
   const genres = useSelector((state) => state.genres);
+  const plataformas = useSelector((state) => state.plataformas);
   const formRef = useRef(null);
 
   const [input, setInput] = useState({
@@ -13,8 +14,8 @@ const Form = () => {
     image: '',
     descripcion: '',
     plataformas: '',
-    fechaLanzamiento: 'YYYY-MM-DD',
-    rating: '0.00',
+    fechaLanzamiento: '',
+    rating: '',
     genero: [],
 });
 
@@ -130,14 +131,10 @@ const handleSubmit = (event) => {
 
   
     const isValidUrl = (url) => {
-      // Validar si la URL cumple con un formato válido
-      // Puedes usar expresiones regulares o cualquier otra lógica de validación
-      // Aquí hay un ejemplo básico que verifica si la URL comienza con "http://" o "https://"
       return url.startsWith('http://') || url.startsWith('https://');
     };
   
     const formatRating = (rating) => {
-      // Formatear el rating automáticamente a 0.00 y limitar a 3 dígitos
       let formattedRating = parseFloat(rating).toFixed(2);
       if (formattedRating.length > 4) {
         formattedRating = formattedRating.slice(0, 4);
@@ -146,9 +143,6 @@ const handleSubmit = (event) => {
     };
   
     const isValidDate = (date) => {
-      // Validar si la fecha cumple con un formato válido
-      // Puedes usar expresiones regulares o cualquier otra lógica de validación
-      // Aquí hay un ejemplo básico que verifica si la fecha tiene el formato "YYYY-MM-DD"
       return /^\d{4}-\d{2}-\d{2}$/.test(date);
   };
 
@@ -167,30 +161,71 @@ const handleSubmit = (event) => {
     }
   };
 
+  const handlePlataformaChange = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setInput((prevInput) => ({
+        ...prevInput,
+        plataformas: [...prevInput.plataformas, value],
+      }));
+    } else {
+      setInput((prevInput) => ({
+        ...prevInput,
+        plataformas: prevInput.plataformas.filter((plataforma) => plataforma !== value),
+      }));
+    }
+  };
+
   return (
     <div className={style.container}>
       <form className={style.formulario} onSubmit={handleSubmit} ref={formRef}>
-        <label htmlFor="name">Nombre: </label>
-        <input type="text" name="nombre" value={input.nombre} onChange={handleInputChange} onBlur={handleInputChange}/>
-            {errorMessages.nombre && <p>{errorMessages.nombre}</p>}
-        <label htmlFor="image">Imagen: </label>
-        <input type="url" name="image" value={input.image} onChange={handleInputChange} onBlur={handleInputChange}/>
-            {errorMessages.image && <p>{errorMessages.image}</p>}   
+        <div className={style.grid}>
+                <div className={style.div1}>
 
-        
-        <label htmlFor="fechalanzamiento">Fecha de Lanzamiento  (Formato YYYY-MM-DD): </label>
-        <input type="text" name="fechaLanzamiento" value={input.fechaLanzamiento} onChange={handleInputChange} onBlur={handleInputChange}/>
-            {errorMessages.fechaLanzamiento && <p>{errorMessages.fechaLanzamiento}</p>}
+                    <label htmlFor="name">Nombre: </label>
+                    <input placeholder='Escriba un Nombre' type="text" name="nombre" value={input.nombre} onChange={handleInputChange} onBlur={handleInputChange}/>
+                        {errorMessages.nombre && <p>{errorMessages.nombre}</p>}
+                        
+                    <label htmlFor="image">Imagen: </label>
+                    <input placeholder='Inserte una URL' type="url" name="image" value={input.image} onChange={handleInputChange} onBlur={handleInputChange}/>
+                        {errorMessages.image && <p>{errorMessages.image}</p>}   
 
-        <label htmlFor="rating">Rating: </label>
-        <input type="number" name="rating" step="0.01" value={input.rating} onChange={handleInputChange} onBlur={handleInputChange}/>
-            {errorMessages.rating && <p>{errorMessages.rating}</p>}
+                    
+                    <label htmlFor="fechalanzamiento">Fecha de Lanzamiento  (Formato YYYY-MM-DD): </label>
+                    <input placeholder='YYYY-MM-DD' type="text" name="fechaLanzamiento" value={input.fechaLanzamiento} onChange={handleInputChange} onBlur={handleInputChange}/>
+                        {errorMessages.fechaLanzamiento && <p>{errorMessages.fechaLanzamiento}</p>}
 
-        <label  htmlFor="descripcion">Descripcion: </label>
-        <input className={style.descripcion} type="text" name="descripcion" value={input.descripcion} onChange={handleInputChange} onBlur={handleInputChange}/>
-        
+                </div>
+
+                <div className={style.div2}>
+
+                    <label htmlFor="rating">Rating: </label>
+                    <input placeholder='Ej: 3,54' type="number" name="rating" step="0.01" value={input.rating} onChange={handleInputChange} onBlur={handleInputChange}/>
+                        {errorMessages.rating && <p>{errorMessages.rating}</p>}
+
+                    <label  htmlFor="descripcion">Descripcion: </label>
+                    <textarea placeholder='este es un videojuego muy bueno ya que tiene muchas funcionalidades y cosas nuevas experimentales....' className={style.descripcion} type="text" name="descripcion" value={input.descripcion} onChange={handleInputChange} onBlur={handleInputChange}/>
+                    
+                </div>
+        <div className={style.div3}>
+
         <label htmlFor="plataformas">Plataformas: </label>
-        <input type="text" name="plataformas" value={input.plataformas} onChange={handleInputChange} onBlur={handleInputChange}/>
+        <div className={style.checktipes}>
+          {plataformas.map((plataforma) => (
+            <label key={plataforma} className={style.checkboxes}>
+              <input
+                type="checkbox"
+                name="plataforma"
+                value={plataforma}
+                checked={input.plataformas.includes(plataforma)}
+                onChange={handlePlataformaChange}
+              />
+              {plataforma.charAt(0).toUpperCase() + plataforma.slice(1)}
+            </label>
+          ))}
+        </div>
+        </div>
+        <div className={style.div4}>
 
         <label htmlFor="genre">Genero(s): </label>
         <div className={style.checktipes}>
@@ -207,7 +242,8 @@ const handleSubmit = (event) => {
             </label>
           ))}
         </div>
-
+        </div>
+        </div>
         <button type="submit" id="submit-button">Crear Videogame</button>
       </form>
       <div className={style.presentacion}>

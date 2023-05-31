@@ -3,7 +3,6 @@
 }
 
 .presentacion {
-  background-color: #4CAF50;
   width: 500px;
   height: 900px;
 }
@@ -13,12 +12,73 @@
   flex-direction: column;
   align-items: flex-start;
   padding: 20px;
-  border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   justify-content: space-between;
   flex: 8;
   color: #fff;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.div1{
+  margin-bottom: -70px;
+  margin-left: 50px;
+  margin-right: 50px;
+  width: 500px;
+  height: 400px;
+}
+
+.div1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.div1 label {
+  margin-bottom: 5px;
+}
+
+.div1 input {
+  margin-bottom: 10px;
+}
+
+
+.div2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.div2 label {
+  margin-bottom: 5px;
+}
+
+.div2 input[type="number"] {
+  margin-bottom: 10px;
+}
+
+.div2 .descripcion {
+  max-width: 500px;
+  max-height: 110px;
+}
+
+
+
+.div3{
+  margin-left: 50px;
+  margin-right: 50px;
+  width: 500px;
+  height: 400px;
+}
+
+.div4{
+  margin-left: 50px;
+  margin-right: 50px;
+  width: 500px;
+  height: 400px;
 }
 
 .formulario label {
@@ -50,14 +110,11 @@
   width: 500px;
   height: 300px;
   text-align: left;
-  /* Alineación del texto a la izquierda */
   padding-top: 0px;
-  /* Elimina el espacio superior */
   margin-top: 0px;
 }
 
 .formulario button[type="submit"] {
-  margin-top: 20px;
   padding: 10px;
   background-color: #4CAF50;
   color: white;
@@ -156,3 +213,32 @@ label[for="image"] {
     max-width: 100%;
   }
 }
+
+/* Estilo css para la checkboxes*/
+
+.checktipes {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.checkboxes {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.checkboxes input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.checkboxes input[type="checkbox"]:checked + span {
+  font-weight: bold;
+}
+
+.checkboxes span {
+  text-transform: capitalize;
+}
+
+
