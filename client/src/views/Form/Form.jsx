@@ -14,18 +14,58 @@ const Form = () => {
     descripcion: '',
     plataformas: '',
     fechaLanzamiento: '',
-    rating: 0.00,
+    rating: '',
     genero: [],
-  });
+});
 
-  const [errorMessages, setErrorMessages] = useState({
+const [errorMessages, setErrorMessages] = useState({
     nombre: '',
     image: '',
     rating: '',
     fechaLanzamiento: '',
-  });
+});
 
-  const handleSubmit = (event) => {
+const handleInputChange = (event) => {
+  const { name, value } = event.target;
+  setInput((prevInput) => ({ ...prevInput, [name]: value }));
+
+  // Validar nombre
+  if (name === 'nombre') {
+    let errorMessage = '';
+    if (value.trim() === '') {
+      errorMessage = 'El nombre no puede estar vacío';
+    } else if (value.includes(' ')) {
+      errorMessage = 'El nombre no puede contener espacios';
+    } else if (value.length > 20) {
+      errorMessage = 'El nombre no puede tener más de 20 caracteres';
+    }
+    setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
+  }
+
+  // Validar imagen
+  if (name === 'image') {
+    const isValid = isValidUrl(value);
+    setErrorMessages((prevErrorMessages) => ({
+      ...prevErrorMessages,
+      [name]: isValid ? '' : 'La imagen es inválida',
+    }));
+  }
+
+  // Validar rating
+  if (name === 'rating') {
+    const formattedRating = formatRating(value);
+    setErrorMessages((prevErrorMessages) => ({
+      ...prevErrorMessages,
+      [name]: formattedRating === '0.00' ? 'El rating es inválido' : '',
+    }));
+    setInput((prevInput) => ({ ...prevInput, [name]: formattedRating }));
+  } else {
+    setInput((prevInput) => ({ ...prevInput, [name]: value }));
+  }
+};
+
+
+const handleSubmit = (event) => {
     event.preventDefault();
 
     const errors = {};
@@ -42,7 +82,7 @@ const Form = () => {
 
     // Validar rating
     if (input.rating === '0.00') {
-      errors.rating = 'El rating es inválido';
+        errors.rating = 'El rating es inválido';
     }
 
     // Validar fecha de lanzamiento
@@ -87,18 +127,6 @@ const Form = () => {
       });
   };
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setInput((prevInput) => ({ ...prevInput, [name]: value }));
-
-    // Validar rating (formatear automáticamente a 0.00 y limitar a 3 dígitos)
-    if (name === 'rating') {
-        const formattedRating = formatRating(value);
-        setInput((prevInput) => ({ ...prevInput, [name]: formattedRating }));
-      } else {
-        setInput((prevInput) => ({ ...prevInput, [name]: value }));
-      }
-    };
   
     const isValidUrl = (url) => {
       // Validar si la URL cumple con un formato válido
@@ -142,22 +170,22 @@ const Form = () => {
     <div className={style.container}>
       <form className={style.formulario} onSubmit={handleSubmit} ref={formRef}>
         <label htmlFor="name">Nombre: </label>
-        <input type="text" name="nombre" value={input.nombre} onChange={handleInputChange} />
+        <input type="text" name="nombre" value={input.nombre} onChange={handleInputChange} onBlur={handleInputChange}/>
             {errorMessages.nombre && <p>{errorMessages.nombre}</p>}
         <label htmlFor="image">Imagen: </label>
-        <input type="url" name="image" value={input.image} onChange={handleInputChange} />
+        <input type="url" name="image" value={input.image} onChange={handleInputChange} onBlur={handleInputChange}/>
             {errorMessages.image && <p>{errorMessages.image}</p>}   
         <label htmlFor="descripcion">Descripcion: </label>
-        <input type="text" name="descripcion" value={input.descripcion} onChange={handleInputChange} />
+        <input type="text" name="descripcion" value={input.descripcion} onChange={handleInputChange} onBlur={handleInputChange}/>
 
         <label htmlFor="plataformas">Plataformas: </label>
-        <input type="text" name="plataformas" value={input.plataformas} onChange={handleInputChange} />
+        <input type="text" name="plataformas" value={input.plataformas} onChange={handleInputChange} onBlur={handleInputChange}/>
 
-        <label htmlFor="fechalanzamiento">Fecha de Lanzamiento: </label>
-        <input type="text" name="fechaLanzamiento" value={input.fechaLanzamiento} onChange={handleInputChange} />
+        <label htmlFor="fechalanzamiento">Fecha de Lanzamiento  (Formato YYYY-MM-DD): </label>
+        <input type="text" name="fechaLanzamiento" value={input.fechaLanzamiento} onChange={handleInputChange} onBlur={handleInputChange}/>
             {errorMessages.fechaLanzamiento && <p>{errorMessages.fechaLanzamiento}</p>}
         <label htmlFor="rating">Rating: </label>
-        <input type="number" name="rating" step="0.01" value={input.rating} onChange={handleInputChange} />
+        <input type="number" name="rating" step="0.01" value={input.rating} onChange={handleInputChange} onBlur={handleInputChange}/>
             {errorMessages.rating && <p>{errorMessages.rating}</p>}
 
         <label htmlFor="genre">Genero(s): </label>
@@ -176,7 +204,7 @@ const Form = () => {
           ))}
         </div>
 
-        <button type="submit" id="submit-button">Crear Pokemon</button>
+        <button type="submit" id="submit-button">Crear Videogame</button>
       </form>
     </div>
   );
