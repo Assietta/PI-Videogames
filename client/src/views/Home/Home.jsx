@@ -3,14 +3,14 @@ import Cards from "../../components/Cards/Cards"; // eslint-disable-next-line
 import { useEffect, useState } from "react"; // eslint-disable-next-line
 import { useDispatch, useSelector } from "react-redux";
 // import { getVideogames, getGenres } from "../../redux/actions";
-import { SearchBar, FilterDB, Filter } from "../../components/components";
+import { SearchBar, FilterDB, Filter, Sorter } from "../../components/components";
 // , Filter, Sorter, FilterDB
 const Home = () => {
   const dispatch = useDispatch();
   const videogames = useSelector(state => state.videogames);
   const genres = useSelector(state => state.genres);
 //   const [loading, setLoading] = useState(true);
-//   const [selectedSort, setSelectedSort] = useState('');
+  const [selectedSort, setSelectedSort] = useState('');
 
   // useEffect(() => {
   //   dispatch(getVideogames());
@@ -22,9 +22,9 @@ const Home = () => {
     <>
       <div >
       <div className={style.container}>
-        {/* <div className={style.sorter}>
+        <div className={style.sorter}>
           <Sorter selectedSort={selectedSort} setSelectedSort={setSelectedSort}/>
-        </div> */}
+        </div>
         <div className={style.filter}>
           <div className={style.filterdb}>
             <FilterDB/>

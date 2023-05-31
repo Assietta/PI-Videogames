@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES, GET_GENRES, GET_NAME, GET_ID, FILTER_BY_CREATED, FILTER_BY_GENRE} from "./actions";
+import { GET_VIDEOGAMES, GET_GENRES, GET_NAME, GET_ID, FILTER_BY_CREATED, FILTER_BY_GENRE, ORDER_BY_NAME, ORDER_BY_ATAQUE} from "./actions";
 
 const initialState = {
   videogames: [
@@ -4080,6 +4080,60 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           videogames: filteredVideogames,
         };
+
+        case ORDER_BY_NAME:
+          const sortedArr = [...state.videogames]; // Crear una copia del array
+          sortedArr.sort((a, b) => {
+            const nameA = a.nombre.toLowerCase();
+            const nameB = b.nombre.toLowerCase();
+            if (nameA > nameB) {
+              return action.payload === 'asc' ? 1 : -1;
+            }
+            if (nameB > nameA) {
+              return action.payload === 'asc' ? -1 : 1;
+            }
+            return 0;
+          });
+          return {
+            ...state,
+            videogames: sortedArr,
+          };
+        
+
+
+
+          case ORDER_BY_ATAQUE:
+            const sortedRating = [...state.videogames]; // Crear una copia del array
+            sortedRating.sort((a, b) => {
+              const ratingA = parseFloat(a.rating);
+              const ratingB = parseFloat(b.rating);
+              if (isNaN(ratingA) || isNaN(ratingB)) return -1;
+              if (ratingA > ratingB) return action.payload === 'ratmax' ? 1 : -1;
+              if (ratingA < ratingB) return action.payload === 'ratmax' ? -1 : 1;
+              return 0;
+            });
+          
+            return {
+              ...state,
+              videogames: sortedRating,
+          };
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       default:
             return state;

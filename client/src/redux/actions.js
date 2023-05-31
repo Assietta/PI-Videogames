@@ -6,6 +6,8 @@ export const GET_NAME = 'GET_NAME'
 export const GET_ID = 'GET_ID'
 export const FILTER_BY_CREATED = 'FILTER_BY_CREATED'
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE'
+export const ORDER_BY_NAME = 'ORDER_BY_NAME'
+export const ORDER_BY_ATAQUE = 'ORDER_BY_ATAQUE'
 
 // export function getVideogames(){
 //     return async function (dispatch){
@@ -80,3 +82,18 @@ export function filterByCreated(isDB) {
     };
   };
   
+  export function sortByName(payload){
+    console.log(payload);
+    return {
+        type: ORDER_BY_NAME,
+        payload
+    }
+}
+
+export function sortByAtaque(payload){
+    console.log(payload);
+    return {
+        type: ORDER_BY_ATAQUE,
+        payload
+    }
+}

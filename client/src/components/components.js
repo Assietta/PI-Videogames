@@ -1,6 +1,5 @@
 import SearchBar from './SearchBar/SearchBar'
 import Filter from './Filters/Filter';
-// import Sorter from './Sorter/Sorter';
+import Sorter from './Sorter/Sorter';
 import FilterDB from './Filters/FilterDB';
-// , Filter, Sorter, FilterDB
-export { SearchBar, FilterDB, Filter };
+export { SearchBar, FilterDB, Filter, Sorter };
