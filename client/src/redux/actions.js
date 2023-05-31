@@ -7,33 +7,33 @@ export const GET_ID = 'GET_ID'
 export const FILTER_BY_CREATED = 'FILTER_BY_CREATED'
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE'
 
-export function getVideogames(){
-    return async function (dispatch){
-        try {
-            const response = await axios.get("/videogame");
-            dispatch({
-                type: GET_VIDEOGAMES,
-                payload: response.data
-            })
-        } catch (error) {
-            console.error("Error while getting videogames:", error);
-        }
-    }
-}
+// export function getVideogames(){
+//     return async function (dispatch){
+//         try {
+//             const response = await axios.get("/videogame");
+//             dispatch({
+//                 type: GET_VIDEOGAMES,
+//                 payload: response.data
+//             })
+//         } catch (error) {
+//             console.error("Error while getting videogames:", error);
+//         }
+//     }
+// }
 
-export function getGenres(){
-    return async function (dispatch){
-        try {
-            const response = await axios.get("/genres");
-            dispatch({
-                type: GET_GENRES,
-                payload: response.data
-            })
-        } catch (error) {
-            console.error("Error while getting genres:", error);
-        }
-    }
-}
+// export function getGenres(){
+//     return async function (dispatch){
+//         try {
+//             const response = await axios.get("/genres");
+//             dispatch({
+//                 type: GET_GENRES,
+//                 payload: response.data
+//             })
+//         } catch (error) {
+//             console.error("Error while getting genres:", error);
+//         }
+//     }
+// }
 
 export const getName = (name) => {
     console.log(name)
@@ -68,17 +68,15 @@ export function filterByCreated(isDB) {
 
 
   export const filterByGenre = (selectedGenres) => {
-    console.log("selectedGenres", selectedGenres);
     return {
       type: FILTER_BY_GENRE,
       payload: selectedGenres,
       filterFunction: (videogames) => {
-        console.log("videogames", videogames);
-        const filteredvideogames = selectedGenres.every((selectedGenre) => {
-          return videogames.generos.includes(selectedGenre);
-        });
-        console.log("filteredvideogames", filteredvideogames);
-        return filteredvideogames;
+        const filteredVideogames = videogames.filter((videogame) =>
+          selectedGenres.includes(videogame.genero)
+        );
+        return filteredVideogames;
       },
     };
   };
+  
