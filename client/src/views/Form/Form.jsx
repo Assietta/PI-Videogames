@@ -1,82 +1,66 @@
-// import style from './Form.module.css';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { postPokemon, getTypes } from '../../redux/actions';
-// import React, { useEffect, useState, useRef } from 'react';
+import style from './Form.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+// import { postPokemon, getGenres } from '../../redux/actions';
+import React, { useEffect, useState, useRef } from 'react';
 
-// const Form = () => {
-//   const dispatch = useDispatch();
-//   const types = useSelector((state) => state.types);
-//   const formRef = useRef(null);
+const Form = () => {
+  const dispatch = useDispatch();
+  const genres = useSelector((state) => state.genres);
+  const formRef = useRef(null);
 
-//   const [input, setInput] = useState({
-//     name: '',
-//     imagen: '',
-//     vida: 0,
-//     ataque: 0,
-//     defensa: 0,
-//     velocidad: 0,
-//     altura: 0,
-//     peso: 0,
-//     tipos: ['', ''],
-//   });
+  const [input, setInput] = useState({
+    name: '',
+    imagen: '',
+    vida: 0,
+    ataque: 0,
+    defensa: 0,
+    velocidad: 0,
+    altura: 0,
+    peso: 0,
+    tipos: ['', ''],
+  });
 
-//   useEffect(() => {
-//     dispatch(getTypes());
-//   }, [dispatch]);
 
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     const { name, imagen, vida, ataque, defensa, velocidad, altura, peso, tipos } = input;
-//     const pokemonData = {
-//       name,
-//       imagen,
-//       vida,
-//       ataque,
-//       defensa,
-//       velocidad,
-//       altura,
-//       peso,
-//       tipos: tipos,
-//     };
-//     dispatch(postPokemon(pokemonData));
-//     console.log(pokemonData);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const { name, imagen, vida, ataque, defensa, velocidad, altura, peso, tipos } = input;
+    const pokemonData = {
+      name,
+      imagen,
+      vida,
+      ataque,
+      defensa,
+      velocidad,
+      altura,
+      peso,
+      tipos: tipos,
+    };
+
+    console.log(pokemonData);
     
-//     formRef.current.reset(); // Restablecer el formulario
-//     setInput({
-//       name: '',
-//       imagen: '',
-//       vida: 0,
-//       ataque: 0,
-//       defensa: 0,
-//       velocidad: 0,
-//       altura: 0,
-//       peso: 0,
-//       tipos: ['', ''],
-//     }); // Restablecer los valores del estado
-//   };
+    formRef.current.reset(); // Restablecer el formulario
+    setInput({
+      name: '',
+      imagen: '',
+      vida: 0,
+      ataque: 0,
+      defensa: 0,
+      velocidad: 0,
+      altura: 0,
+      peso: 0,
+      tipos: ['', ''],
+    }); // Restablecer los valores del estado
+  };
   
 
 //   const handleTypeChange = (event) => {
-//     const selectedtype = Array.from(document.querySelectorAll('input[name=type]:checked')).map((input) => input.value);
+//     const selectedGenres = Array.from(document.querySelectorAll('input[name=type]:checked')).map((input) => input.value);
 
 
-//     if (!input.name.trim()) {
-//       alert('Ingrese un nombre válido');
-//       return;
-//     }
-//     if (selectedtype.length >= 2) {
-//       document.querySelectorAll('input[name=type]:not(:checked)').forEach((input) => {
-//         input.disabled = true;
-//       });
-//     } else {
-//       document.querySelectorAll('input[name=type]:not(:checked)').forEach((input) => {
-//         input.disabled = false;
-//       });
-//     }
-
+   
 //     setInput({
 //       ...input,
-//       tipos: selectedtype,
+//       genres: selectedGenres,
 //     });
 //   };
 
@@ -89,6 +73,55 @@
 //     });
 //   };
       
+  return (
+    <div className={style.container}>
+        <form className={style.formulario} action="">
+            
+            <label htmlFor="name">Nombre: </label>
+            <input type="text" />
+
+            <label htmlFor="image">Imagen: </label>
+            <input type="url" />
+            
+            <label htmlFor="descripcion">Descripcion: </label>
+            <input type="text" />
+            
+            <label htmlFor="plataformas">Plataformas: </label>
+            <input type="text" />
+            
+            <label htmlFor="fechalanzamiento">Fecha de Lanzamiento: </label>
+            <input type="text" />
+            
+            <label htmlFor="rating">Rating: </label>
+            <input type="number" />
+
+            <label htmlFor="genre">Genero(s): </label>
+            <div className={style.checktipes}>
+
+
+
+            {genres.map((genres) => ( 
+          <label key={genres} className={style.checkboxes}>
+            <input
+              type="checkbox"
+              name="type"
+              value={genres}
+            //   checked={selectedGenres.includes(genres)}
+            //   onChange={handleTypeChange}
+            />
+                {genres.charAt(0).toUpperCase() + genres.slice(1)}
+                </label>
+                ))}
+            </div>
+
+
+            <button type="submit" id="submit-button">Crear Pokemon</button>
+        </form>
+
+    </div>
+  )
+
+
 //   return (
 //     <>
 //     <div className={style.newpokemoncontainer}>
@@ -117,18 +150,6 @@
 //           <label htmlFor="peso">Peso:</label>
 //           <input value={input.peso} type="number" id="peso" name="peso" min="0" max="1000" onChange={handleInputChange} />
         
-//           <label htmlFor="type">Tipo(s):</label>
-//             <div className={style.checktipes}>
-//               {types.map((type) => (
-//                 <label key={type}>
-//                   <input type="checkbox" name="type" value={type} checked={input.tipos.includes(type)} onChange={handleTypeChange} />
-//                   {type.charAt(0).toUpperCase() + type.slice(1)}
-//                 </label>
-//               ))}
-//             </div>
-
-    
-//           <button type="submit" id="submit-button">Crear Pokemon</button>
 //       </form>
 
 //       <div className={style.card}>
@@ -183,6 +204,6 @@
 //       </div>
 //     </>
 //     );
-//   };
+  };
   
-//   export default Form;
+  export default Form;

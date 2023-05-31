@@ -1,8 +1,8 @@
-.newpokemoncontainer {
+.container {
   display: flex;
 }
 
-.newpokemonform {
+.formulario {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -12,29 +12,30 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     justify-content: space-between;
     flex: 8;
+    color: #fff;
   }
   
-  .newpokemonform label {
+  .formulario label {
     margin-top: 10px;
     margin-bottom: 5px;
     font-weight: bold;
   }
   
-  .newpokemonform input[type="text"],
-  .newpokemonform input[type="url"],
-  .newpokemonform input[type="number"],
-  .newpokemonform select {
+  .formulario input[type="text"],
+  .formulario input[type="url"],
+  .formulario input[type="number"],
+  .formulario select {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
   }
   
-  .newpokemonform select {
+  .formulario select {
     height: 100px;
   }
   
-  .newpokemonform button[type="submit"] {
+  .formulario button[type="submit"] {
     margin-top: 20px;
     padding: 10px;
     background-color: #4CAF50;
@@ -45,51 +46,16 @@
     cursor: pointer;
   }
   
-  .newpokemonform button[type="submit"]:hover {
+  .formulario button[type="submit"]:hover {
     background-color: #3e8e41;
   }
   
-  label[for="imagen"] {
+  label[for="image"] {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
   }
   
-  
-  .imagencontainer {
-    width: 180px;
-    height: 180px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #333;
-    border-radius: 50%;
-    margin-bottom: 20px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-
-  }
-  
-  .imagencontainer img {
-    max-width: 180px;
-    max-height: 180px;
-    object-fit: cover;
-  }
-
-  
-  .imageInput {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  
-  .checktipes {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(3, auto);
-  }
-
 
   
 

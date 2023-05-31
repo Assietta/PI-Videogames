@@ -1,5 +1,5 @@
 // import { Home, Detail, Form, LandingPage } from "./views/index"
-import { Home, LandingPage, Detail } from "./views/index" // eslint-disable-next-line
+import { Home, LandingPage, Detail, Form } from "./views/index" // eslint-disable-next-line
 import { Route, Routes, useLocation } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import axios from 'axios';
@@ -16,7 +16,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
-        {/* <Route path="/Forms" element={<Form />} /> */}
+        <Route path="/Forms" element={<Form />} />
       </Routes>
 
     </>
