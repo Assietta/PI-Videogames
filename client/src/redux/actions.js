@@ -8,7 +8,7 @@ export const FILTER_BY_CREATED = 'FILTER_BY_CREATED'
 export const FILTER_BY_GENRE = 'FILTER_BY_GENRE'
 export const ORDER_BY_NAME = 'ORDER_BY_NAME'
 export const ORDER_BY_ATAQUE = 'ORDER_BY_ATAQUE'
-
+export const POST_VIDEOGAMES = 'POST_VIDEOGAMES'
 // export function getVideogames(){
 //     return async function (dispatch){
 //         try {
@@ -96,4 +96,28 @@ export function sortByAtaque(payload){
         type: ORDER_BY_ATAQUE,
         payload
     }
+}
+
+
+export function postVideogames(videogamesData){
+  return async function (dispatch){
+
+      try {
+          const response = await axios.post("/videogame", JSON.stringify(videogamesData), {
+              headers: {
+                "Content-Type": "application/json"
+              }
+            });
+          console.log(response.data)
+          dispatch({
+              type: POST_VIDEOGAMES,
+              payload: response.data
+          })
+          console.log(videogamesData)
+      } catch (error) {
+          console.error("Error while posting pokemon:", error.response.data.message);
+          console.log(error.message);
+
+      }
+  }
 }

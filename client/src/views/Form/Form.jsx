@@ -9,201 +9,177 @@ const Form = () => {
   const formRef = useRef(null);
 
   const [input, setInput] = useState({
-    name: '',
-    imagen: '',
-    vida: 0,
-    ataque: 0,
-    defensa: 0,
-    velocidad: 0,
-    altura: 0,
-    peso: 0,
-    tipos: ['', ''],
+    nombre: '',
+    image: '',
+    descripcion: '',
+    plataformas: '',
+    fechaLanzamiento: '',
+    rating: 0.00,
+    genero: [],
   });
 
+  const [errorMessages, setErrorMessages] = useState({
+    nombre: '',
+    image: '',
+    rating: '',
+    fechaLanzamiento: '',
+  });
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { name, imagen, vida, ataque, defensa, velocidad, altura, peso, tipos } = input;
-    const pokemonData = {
-      name,
-      imagen,
-      vida,
-      ataque,
-      defensa,
-      velocidad,
-      altura,
-      peso,
-      tipos: tipos,
+
+    const errors = {};
+
+    // Validar nombre
+    if (input.nombre.trim() === '' || input.nombre.includes(' ') || input.nombre.length > 20) {
+      errors.nombre = 'El nombre es inválido';
+    }
+
+    // Validar imagen
+    if (!isValidUrl(input.image)) {
+      errors.image = 'La imagen es inválida';
+    }
+
+    // Validar rating
+    if (input.rating === '0.00') {
+      errors.rating = 'El rating es inválido';
+    }
+
+    // Validar fecha de lanzamiento
+    if (!isValidDate(input.fechaLanzamiento)) {
+      errors.fechaLanzamiento = 'La fecha de lanzamiento es inválida';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setErrorMessages(errors);
+      return;
+    }
+  
+
+    const { nombre, image, descripcion, plataformas, fechaLanzamiento, rating, genero } = input;
+    const videogamesData = {
+      nombre,
+      image,
+      descripcion,
+      plataformas,
+      fechaLanzamiento,
+      rating,
+      genero,
     };
 
-    console.log(pokemonData);
+    console.log(videogamesData);
     
-    formRef.current.reset(); // Restablecer el formulario
+    formRef.current.reset();
     setInput({
-      name: '',
-      imagen: '',
-      vida: 0,
-      ataque: 0,
-      defensa: 0,
-      velocidad: 0,
-      altura: 0,
-      peso: 0,
-      tipos: ['', ''],
-    }); // Restablecer los valores del estado
+      nombre: '',
+      image: '',
+      descripcion: '',
+      plataformas: '',
+      fechaLanzamiento: '',
+      rating: 0.00,
+      genero: [],
+    });
+    setErrorMessages({
+        nombre: '',
+        image: '',
+        rating: '',
+        fechaLanzamiento: '',
+      });
   };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setInput((prevInput) => ({ ...prevInput, [name]: value }));
+
+    // Validar rating (formatear automáticamente a 0.00 y limitar a 3 dígitos)
+    if (name === 'rating') {
+        const formattedRating = formatRating(value);
+        setInput((prevInput) => ({ ...prevInput, [name]: formattedRating }));
+      } else {
+        setInput((prevInput) => ({ ...prevInput, [name]: value }));
+      }
+    };
   
+    const isValidUrl = (url) => {
+      // Validar si la URL cumple con un formato válido
+      // Puedes usar expresiones regulares o cualquier otra lógica de validación
+      // Aquí hay un ejemplo básico que verifica si la URL comienza con "http://" o "https://"
+      return url.startsWith('http://') || url.startsWith('https://');
+    };
+  
+    const formatRating = (rating) => {
+      // Formatear el rating automáticamente a 0.00 y limitar a 3 dígitos
+      let formattedRating = parseFloat(rating).toFixed(2);
+      if (formattedRating.length > 4) {
+        formattedRating = formattedRating.slice(0, 4);
+      }
+      return formattedRating;
+    };
+  
+    const isValidDate = (date) => {
+      // Validar si la fecha cumple con un formato válido
+      // Puedes usar expresiones regulares o cualquier otra lógica de validación
+      // Aquí hay un ejemplo básico que verifica si la fecha tiene el formato "YYYY-MM-DD"
+      return /^\d{4}-\d{2}-\d{2}$/.test(date);
+  };
 
-//   const handleTypeChange = (event) => {
-//     const selectedGenres = Array.from(document.querySelectorAll('input[name=type]:checked')).map((input) => input.value);
+    const handleGenreChange = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setInput((prevInput) => ({
+        ...prevInput,
+        genero: [...prevInput.genero, value],
+      }));
+    } else {
+      setInput((prevInput) => ({
+        ...prevInput,
+        genero: prevInput.genero.filter((genre) => genre !== value),
+      }));
+    }
+  };
 
-
-   
-//     setInput({
-//       ...input,
-//       genres: selectedGenres,
-//     });
-//   };
-
-//   const handleInputChange = (event) => {
-//     const { name, value } = event.target;
-
-//     setInput({
-//       ...input,
-//       [name]: value,
-//     });
-//   };
-      
   return (
     <div className={style.container}>
-        <form className={style.formulario} action="">
-            
-            <label htmlFor="name">Nombre: </label>
-            <input type="text" />
+      <form className={style.formulario} onSubmit={handleSubmit} ref={formRef}>
+        <label htmlFor="name">Nombre: </label>
+        <input type="text" name="nombre" value={input.nombre} onChange={handleInputChange} />
+            {errorMessages.nombre && <p>{errorMessages.nombre}</p>}
+        <label htmlFor="image">Imagen: </label>
+        <input type="url" name="image" value={input.image} onChange={handleInputChange} />
+            {errorMessages.image && <p>{errorMessages.image}</p>}   
+        <label htmlFor="descripcion">Descripcion: </label>
+        <input type="text" name="descripcion" value={input.descripcion} onChange={handleInputChange} />
 
-            <label htmlFor="image">Imagen: </label>
-            <input type="url" />
-            
-            <label htmlFor="descripcion">Descripcion: </label>
-            <input type="text" />
-            
-            <label htmlFor="plataformas">Plataformas: </label>
-            <input type="text" />
-            
-            <label htmlFor="fechalanzamiento">Fecha de Lanzamiento: </label>
-            <input type="text" />
-            
-            <label htmlFor="rating">Rating: </label>
-            <input type="number" />
+        <label htmlFor="plataformas">Plataformas: </label>
+        <input type="text" name="plataformas" value={input.plataformas} onChange={handleInputChange} />
 
-            <label htmlFor="genre">Genero(s): </label>
-            <div className={style.checktipes}>
+        <label htmlFor="fechalanzamiento">Fecha de Lanzamiento: </label>
+        <input type="text" name="fechaLanzamiento" value={input.fechaLanzamiento} onChange={handleInputChange} />
+            {errorMessages.fechaLanzamiento && <p>{errorMessages.fechaLanzamiento}</p>}
+        <label htmlFor="rating">Rating: </label>
+        <input type="number" name="rating" step="0.01" value={input.rating} onChange={handleInputChange} />
+            {errorMessages.rating && <p>{errorMessages.rating}</p>}
 
+        <label htmlFor="genre">Genero(s): </label>
+        <div className={style.checktipes}>
+          {genres.map((genre) => (
+            <label key={genre} className={style.checkboxes}>
+              <input
+                type="checkbox"
+                name="genre"
+                value={genre}
+                checked={input.genero.includes(genre)}
+                onChange={handleGenreChange}
+              />
+              {genre.charAt(0).toUpperCase() + genre.slice(1)}
+            </label>
+          ))}
+        </div>
 
-
-            {genres.map((genres) => ( 
-          <label key={genres} className={style.checkboxes}>
-            <input
-              type="checkbox"
-              name="type"
-              value={genres}
-            //   checked={selectedGenres.includes(genres)}
-            //   onChange={handleTypeChange}
-            />
-                {genres.charAt(0).toUpperCase() + genres.slice(1)}
-                </label>
-                ))}
-            </div>
-
-
-            <button type="submit" id="submit-button">Crear Pokemon</button>
-        </form>
-
+        <button type="submit" id="submit-button">Crear Pokemon</button>
+      </form>
     </div>
-  )
+  );
+};
 
-
-//   return (
-//     <>
-//     <div className={style.newpokemoncontainer}>
-//       <form id="new-pokemon-form" ref={formRef} className={style.newpokemonform} onSubmit={handleSubmit}>
-//           <label htmlFor="name">Nombre:</label>
-//           <input value={input.name} type="text" id="name" name="name" required onChange={handleInputChange} />
-  
-//           <label htmlFor="imagen">Imagen:</label>
-//           <input value={input.imagen} type="url" id="imagen" name="imagen" required onChange={handleInputChange} />
-
-//           <label htmlFor="vida">Vida:</label>
-//           <input value={input.vida} type="number" id="vida" name="vida" min="0" max="100" required onChange={handleInputChange} />
-    
-//           <label htmlFor="ataque">Ataque:</label>
-//           <input value={input.ataque} type="number" id="ataque" name="ataque" min="0" max="100" required onChange={handleInputChange} />
-        
-//           <label htmlFor="defensa">Defensa:</label>
-//           <input value={input.defensa} type="number" id="defensa" name="defensa" min="0" max="100" required onChange={handleInputChange} />
-        
-//           <label htmlFor="velocidad">Velocidad:</label>
-//           <input value={input.velocidad === null ? "" : input.velocidad} type="number" id="velocidad" name="velocidad" min="0" max="100" onChange={handleInputChange} />
-        
-//           <label htmlFor="altura">Altura:</label>
-//           <input value={input.altura} type="number" id="altura" name="altura" min="0" max="10" onChange={handleInputChange} />
-        
-//           <label htmlFor="peso">Peso:</label>
-//           <input value={input.peso} type="number" id="peso" name="peso" min="0" max="1000" onChange={handleInputChange} />
-        
-//       </form>
-
-//       <div className={style.card}>
-
-//          <div className={style.front}>
-//                 <div className={style.imageContainer}>
-//                   <img 
-//                       src={input.imagen} 
-//                       alt={input.imagen} 
-//                       className={style.image} 
-//                       />
-//                 </div>
-//                 <h2 className={style.name}>{input.name}</h2>
-//                 <div className={style.types}>
-//                   {input.tipos.map((tipo) => (
-//                     <span key={tipo} className={style.tipo}>{tipo}</span>
-//                   ))}
-
-//                 </div>
-//             </div>
-
-//         <div className={style.back}>
-//                   <div className={style.stats}>
-//                      <div className={style.stat}>
-//                         <span className={style.statName}>Vida:</span>
-//                         <span className={style.statValue}>{input.vida}</span>
-//                      </div>
-//                      <div className={style.stat}>
-//                         <span className={style.statName}>Ataque:</span>
-//                         <span className={style.statValue}>{input.ataque}</span>
-//                      </div>
-//                      <div className={style.stat}>
-//                         <span className={style.statName}>Defensa:</span>
-//                         <span className={style.statValue}>{input.defensa}</span>
-//                      </div>
-//                      <div className={style.stat}>
-//                         <span className={style.statName}>Velocidad:</span>
-//                         <span className={style.statValue}>{input.velocidad}</span>
-//                      </div>
-//                      <div className={style.stat}>
-//                         <span className={style.statName}>Altura:</span>
-//                         <span className={style.statValue}>{input.altura}</span>
-//                      </div>
-//                      <div className={style.stat}>
-//                         <span className={style.statName}>Peso:</span>
-//                         <span className={style.statValue}>{input.peso}</span>
-//                      </div>
-//                   </div>
-//                </div>
-
-//         </div>
-//       </div>
-//     </>
-//     );
-  };
-  
-  export default Form;
+export default Form;

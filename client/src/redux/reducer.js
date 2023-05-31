@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES, GET_GENRES, GET_NAME, GET_ID, FILTER_BY_CREATED, FILTER_BY_GENRE, ORDER_BY_NAME, ORDER_BY_ATAQUE} from "./actions";
+import { GET_VIDEOGAMES, GET_GENRES, GET_NAME, GET_ID, FILTER_BY_CREATED, FILTER_BY_GENRE, ORDER_BY_NAME, ORDER_BY_ATAQUE, POST_VIDEOGAMES} from "./actions";
 
 const initialState = {
   videogames: [
@@ -4113,6 +4113,12 @@ const rootReducer = (state = initialState, action) => {
               return 0;
             });
           
+
+            case POST_VIDEOGAMES:
+              return {
+                ...state,
+                videogames: action.payload,
+              };
             return {
               ...state,
               videogames: sortedRating,
