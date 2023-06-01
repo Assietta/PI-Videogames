@@ -35,8 +35,8 @@ const handleInputChange = (event) => {
     let errorMessage = '';
     if (value.trim() === '') {
       errorMessage = 'El nombre no puede estar vacío';
-    } else if (value.includes(' ')) {
-      errorMessage = 'El nombre no puede contener espacios';
+    } else if (value.startsWith(' ')) {
+      errorMessage = 'El nombre no puede empezar con espacios';
     } else if (value.length > 20) {
       errorMessage = 'El nombre no puede tener más de 20 caracteres';
     }
@@ -48,21 +48,53 @@ const handleInputChange = (event) => {
     const isValid = isValidUrl(value);
     setErrorMessages((prevErrorMessages) => ({
       ...prevErrorMessages,
-      [name]: isValid ? '' : 'La imagen es inválida',
+      [name]: isValid ? '' : 'La imagen es inválida, inserte URL',
     }));
   }
 
-  // Validar rating
-  if (name === 'rating') {
-    const formattedRating = formatRating(value);
-    setErrorMessages((prevErrorMessages) => ({
-      ...prevErrorMessages,
-      [name]: formattedRating === '0.00' ? 'El rating es inválido' : '',
-    }));
-    setInput((prevInput) => ({ ...prevInput, [name]: formattedRating }));
-  } else {
-    setInput((prevInput) => ({ ...prevInput, [name]: value }));
+  //validar fecha
+  if (name === 'fechaLanzamiento') {
+    let errorMessage = '';
+    if (!isValidDate(value)) {
+      errorMessage = 'La fecha de lanzamiento es inválida';
+    }
+    setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
   }
+  
+
+ // Validar rating
+if (name === 'rating') {
+  let formattedRating = value.trim() === '' ? '0.00' : formatRating(value);
+  let errorMessage = '';
+  if (formattedRating === '0.00' || parseFloat(formattedRating) < 0 || parseFloat(formattedRating) > 10) {
+    errorMessage = 'El rating es inválido';
+  }
+  setErrorMessages((prevErrorMessages) => ({
+    ...prevErrorMessages,
+    [name]: errorMessage,
+  }));
+  setInput((prevInput) => ({ ...prevInput, [name]: formattedRating }));
+}
+
+  // Validar descripcion
+  if (name === 'descripcion') {
+    let errorMessage = '';
+    if (value.trim() === '') {
+      errorMessage = 'La descripcion no puede estar vacía';
+    } 
+    setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
+  }
+
+  // Validar plataforma
+if (name === 'plataforma') {
+  const selectedPlatforms = input.plataformas;
+  let errorMessage = '';
+  if (selectedPlatforms.length === 0) {
+    errorMessage = 'Debe seleccionar al menos una plataforma';
+  }
+  setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
+}
+
   
 };
 
@@ -91,6 +123,7 @@ const handleSubmit = (event) => {
     if (!isValidDate(input.fechaLanzamiento)) {
       errors.fechaLanzamiento = 'La fecha de lanzamiento es inválida';
     }
+    
 
     if (Object.keys(errors).length > 0) {
       setErrorMessages(errors);
@@ -205,14 +238,14 @@ const handleSubmit = (event) => {
 
                     <label  htmlFor="descripcion">Descripcion: </label>
                     <textarea placeholder='este es un videojuego muy bueno ya que tiene muchas funcionalidades y cosas nuevas experimentales....' className={style.descripcion} type="text" name="descripcion" value={input.descripcion} onChange={handleInputChange} onBlur={handleInputChange}/>
-                    
+                    {errorMessages.descripcion && <p>{errorMessages.descripcion}</p>}
                 </div>
         <div className={style.div3}>
 
         <label htmlFor="plataformas">Plataformas: </label>
         <div className={style.checktipes}>
           {plataformas.map((plataforma) => (
-            <label key={plataforma} className={style.checkboxes}>
+            <label key={plataforma} >
               <input
                 type="checkbox"
                 name="plataforma"
@@ -224,6 +257,7 @@ const handleSubmit = (event) => {
             </label>
           ))}
         </div>
+        {errorMessages.plataforma && <p>{errorMessages.plataforma}</p>}
         </div>
         <div className={style.div4}>
 
@@ -242,6 +276,7 @@ const handleSubmit = (event) => {
             </label>
           ))}
         </div>
+        {errorMessages.genre && <p>{errorMessages.genre}</p>}
         </div>
         </div>
         <button type="submit" id="submit-button">Crear Videogame</button>

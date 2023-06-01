@@ -68,6 +68,7 @@
 
 
 .div3{
+  margin-top: 100px;
   margin-left: 50px;
   margin-right: 50px;
   width: 500px;
@@ -75,6 +76,7 @@
 }
 
 .div4{
+  margin-top: 100px;
   margin-left: 50px;
   margin-right: 50px;
   width: 500px;
@@ -114,19 +116,6 @@
   margin-top: 0px;
 }
 
-.formulario button[type="submit"] {
-  padding: 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.formulario button[type="submit"]:hover {
-  background-color: #3e8e41;
-}
 
 label[for="image"] {
   display: flex;
