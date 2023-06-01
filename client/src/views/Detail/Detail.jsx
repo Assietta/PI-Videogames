@@ -17,21 +17,25 @@ const Detail = () => {
         return (
             <div className={style.videogamesdetail}>
                 <div className={style.container}>
-                    <div>
+                    <div className={style.div1}>
                         <h1 className={style.title}>Id: {videogames.id}</h1>
                         <h2 className={style.title}>Nombre: {videogames.nombre}</h2>
-                        <img className={style.image} src={videogames.imagen} alt={videogames.nombre} />
-                    </div>
-                    <div>
-                        <p className={style.description}>Descripción: {videogames.descripcion}</p>
-                        <p className={style.description}>Plataformas: {videogames.plataformas}</p>
-                        <p className={style.description}>Fecha de lanzamiento: {videogames.fechaLanzamiento}</p>
-                        <p className={style.description}>Rating: {videogames.rating}</p>
+                        <p className={style.texto}>Fecha de lanzamiento: {videogames.fechaLanzamiento}</p>
+                        <p className={style.texto}>Rating: {videogames.rating}</p>
+                        <p className={style.texto}>Plataformas: <div>
+                            {videogames.plataformas && Array.isArray(videogames.plataformas) && videogames.plataformas.map((plataformas) => (
+                                <span key={plataformas} className={style.genre}>{plataformas}</span>
+                            ))}
+                        </div></p> Generos:
                         <div>
-                            {videogames.genres && Array.isArray(videogames.genres) && videogames.genres.map((genero) => (
+                            {videogames.genero && Array.isArray(videogames.genero) && videogames.genero.map((genero) => (
                                 <span key={genero} className={style.genre}>{genero}</span>
                             ))}
                         </div>
+                    </div>
+                    <div className={style.div2}>
+                        <img className={style.image} src={videogames.imagen} alt={videogames.nombre} />
+                        <p className={style.description}>Descripción: {videogames.descripcion}</p>
                     </div>
                 </div>
             </div>
