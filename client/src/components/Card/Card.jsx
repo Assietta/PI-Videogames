@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 export default function Card({ id, nombre, descripcion, plataformas, fechaLanzamiento, rating, genero, isDB, imagen }) {
    return (
-      <Link to={`/detail/${id}`}>
       <div className={style.card}>
+         <Link to={`/detail/${id}`} className={style.link}>
          <div className={style.front}>
             <div className={style.imageContainer}>
                <img
@@ -15,12 +15,12 @@ export default function Card({ id, nombre, descripcion, plataformas, fechaLanzam
             </div>
                <h2 className={style.name}>{nombre}</h2>
             </div>
-            <div>
+            <div className={style.genero}>
                {genero.map((genero) => (
                   <span key={genero} className={style.tipo}>{genero}</span>
                ))}
             </div>
-      </div>
       </Link>
+      </div>
    );
 }
