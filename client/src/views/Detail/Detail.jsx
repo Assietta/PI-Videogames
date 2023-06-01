@@ -22,16 +22,20 @@ const Detail = () => {
                         <h2 className={style.title}>Nombre: {videogames.nombre}</h2>
                         <p className={style.texto}>Fecha de lanzamiento: {videogames.fechaLanzamiento}</p>
                         <p className={style.texto}>Rating: {videogames.rating}</p>
-                        <p className={style.texto}>Plataformas: <div>
-                            {videogames.plataformas && Array.isArray(videogames.plataformas) && videogames.plataformas.map((plataformas) => (
-                                <span key={plataformas} className={style.genre}>{plataformas}</span>
-                            ))}
-                        </div></p> Generos:
-                        <div>
-                            {videogames.genero && Array.isArray(videogames.genero) && videogames.genero.map((genero) => (
-                                <span key={genero} className={style.genre}>{genero}</span>
-                            ))}
-                        </div>
+                        <p className={style.plat}>Plataformas: 
+                            <div>
+                                {videogames.plataformas && Array.isArray(videogames.plataformas) && videogames.plataformas.map((plataformas) => (
+                                    <span key={plataformas} className={style.genre}>{plataformas}</span>
+                                ))}
+                            </div>
+                        </p>
+                        <p className={style.plat}> Generos: 
+                            <div>
+                                {videogames.genero && Array.isArray(videogames.genero) && videogames.genero.map((genero) => (
+                                    <span key={genero} className={style.genre}>{genero}</span>
+                                ))}
+                            </div>
+                        </p>
                     </div>
                     <div className={style.div2}>
                         <img className={style.image} src={videogames.imagen} alt={videogames.nombre} />

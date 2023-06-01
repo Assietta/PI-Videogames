@@ -24,7 +24,7 @@ export default function Cards() {
    };
 
    return (
-      <div>
+      <div className={style.container}>
          <div className={style.cards}>
             {currentVideogames.length > 0 ? (
                currentVideogames.map(({ id, nombre, descripcion, plataformas, fechaLanzamiento, rating, genero, isDB, imagen }) => (
