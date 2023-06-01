@@ -179,6 +179,8 @@ const handleSubmit = (event) => {
         image: '',
         rating: '',
         fechaLanzamiento: '',
+        plataformas: '',
+        genero: [],
       });
   };
 
