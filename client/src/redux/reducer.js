@@ -4151,16 +4151,16 @@ const rootReducer = (state = initialState, action) => {
             });
           
 
+            return {
+              ...state,
+              videogames: sortedRating,
+            };
+            
             case POST_VIDEOGAMES:
               return {
                 ...state,
                 videogames: action.payload,
               };
-            return {
-              ...state,
-              videogames: sortedRating,
-          };
-          
 
 
 
