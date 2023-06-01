@@ -9,7 +9,7 @@ const Form = () => {
   const plataformas = useSelector((state) => state.plataformas);
   const formRef = useRef(null);
   const [platformError, setPlatformError] = useState('');
-const [genreError, setGenreError] = useState('');
+  const [genreError, setGenreError] = useState('');
 
 
 
@@ -29,8 +29,10 @@ const [errorMessages, setErrorMessages] = useState({
     image: '',
     rating: '',
     fechaLanzamiento: '',
+    plataformas: '',
+    genero: '',
 });
-console.log(errorMessages);
+
 
 const handleInputChange = (event) => {
   const { name, value } = event.target;
@@ -91,16 +93,24 @@ if (name === 'rating') {
     setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
   }
 
-  // Validar plataforma
+// Validar plataformas
 if (name === 'plataforma') {
-  const selectedPlatforms = input.plataformas;
   let errorMessage = '';
-  if (selectedPlatforms.length === 0) {
+  if (value.length === 0) {
     errorMessage = 'Debe seleccionar al menos una plataforma';
   }
   setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
 }
-  
+
+// Validar generos
+if (name === 'genre') {
+  let errorMessage = '';
+  if (value.length === 0) {
+    errorMessage = 'Debe seleccionar al menos un genero';
+  }
+  setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
+}
+
 };
 
 
@@ -201,24 +211,33 @@ const handleSubmit = (event) => {
       return /^\d{4}-\d{2}-\d{2}$/.test(date);
   };
 
-    const handleGenreChange = (event) => {
-      const { value, checked } = event.target;
-      if (checked) {
-        setInput((prevInput) => ({
-          ...prevInput,
-          genero: [...prevInput.genero, value],
+  const handleGenreChange = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setInput((prevInput) => ({
+        ...prevInput,
+        genero: [...prevInput.genero, value],
+      }));
+      setGenreError('');
+      setErrorMessages((prevErrorMessages) => ({
+        ...prevErrorMessages,
+        genero: '',
+      }));
+    } else {
+      setInput((prevInput) => ({
+        ...prevInput,
+        genero: prevInput.genero.filter((genre) => genre !== value),
+      }));
+      if (input.genero.length === 1) {
+        setGenreError('Debe seleccionar al menos un género');
+        setErrorMessages((prevErrorMessages) => ({
+          ...prevErrorMessages,
+          genero: 'Debe seleccionar al menos un género',
         }));
-        setGenreError('');
-      } else {
-        setInput((prevInput) => ({
-          ...prevInput,
-          genero: prevInput.genero.filter((genre) => genre !== value),
-        }));
-        if (input.genero.length === 1) {
-          setGenreError('Debe seleccionar al menos un género');
-        }
       }
+    }
   };
+  
 
   const handlePlataformaChange = (event) => {
     const { value, checked } = event.target;
@@ -227,18 +246,29 @@ const handleSubmit = (event) => {
         ...prevInput,
         plataformas: [...prevInput.plataformas, value],
       }));
+      setErrorMessages((prevErrorMessages) => ({
+        ...prevErrorMessages,
+        plataformas: '',
+      }));
       setPlatformError('');
     } else {
       setInput((prevInput) => ({
         ...prevInput,
-        plataformas: prevInput.plataformas.filter((plataforma) => plataforma !== value),
+        plataformas: prevInput.plataformas.filter(
+          (plataforma) => plataforma !== value
+        ),
       }));
       if (input.plataformas.length === 1) {
         setPlatformError('Debe seleccionar al menos una plataforma');
+        setErrorMessages((prevErrorMessages) => ({
+          ...prevErrorMessages,
+          plataformas: 'Debe seleccionar al menos una plataforma',
+        }));
       }
     }
   };
-
+  
+  
   return (
     <div className={style.container}>
       <form className={style.formulario} onSubmit={handleSubmit} ref={formRef}>
@@ -309,7 +339,19 @@ const handleSubmit = (event) => {
 </div>
 
         </div>
-        <button type="submit" id="submit-button" disabled={Object.values(errorMessages).some((message) => message !== '') || Object.values(input).some((value) => value === '')}>Crear Videogame</button>
+        <button
+  type="submit"
+  id="submit-button"
+  disabled={
+    Object.values(errorMessages).some((message) => message !== '') ||
+    Object.values(input).some((value) => value === '') ||
+    input.genero.length === 0 ||
+    input.plataformas.length === 0
+  }
+>
+  Crear Videogame
+</button>
+
       </form>
       <div className={style.presentacion}>
         <div className={style.card}>
