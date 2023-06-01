@@ -2,20 +2,20 @@ import style from './Home.module.css'
 import Cards from "../../components/Cards/Cards"; // eslint-disable-next-line
 import { useEffect, useState } from "react"; // eslint-disable-next-line
 import { useDispatch, useSelector } from "react-redux";
-// import { getVideogames, getGenres } from "../../redux/actions";
+import { getVideogames, getGenres } from "../../redux/actions";
 import { SearchBar, FilterDB, Filter, Sorter } from "../../components/components";
 // , Filter, Sorter, FilterDB
 const Home = () => {
   const dispatch = useDispatch();
-  const videogames = useSelector(state => state.videogames);
-  const genres = useSelector(state => state.genres);
+  // const videogames = useSelector(state => state.videogames);
+  // const genres = useSelector(state => state.genres);
 //   const [loading, setLoading] = useState(true);
   const [selectedSort, setSelectedSort] = useState('');
 
-  // useEffect(() => {
-  //   dispatch(getVideogames());
-  //   dispatch(getGenres());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getVideogames());
+    dispatch(getGenres());
+  }, [dispatch]);
 
 
   return (

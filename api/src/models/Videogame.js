@@ -3,9 +3,12 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   sequelize.define('videogame', {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.STRING,
       primaryKey: true,
+      allowNull: false,
+      validate: {
+        isUUID: 4, // Valida que el ID sea un UUID válido (versión 4)
+      },
     },
     nombre: {
       type: DataTypes.STRING,
@@ -25,12 +28,9 @@ module.exports = (sequelize) => {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
-    image: {
+    imagen: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isUrl: true,
-      },
+      allowNull: true,
     },
     fechaLanzamiento: {
       type: DataTypes.STRING,

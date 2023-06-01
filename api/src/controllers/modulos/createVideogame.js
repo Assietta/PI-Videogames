@@ -1,11 +1,13 @@
+const { v4: uuidv4 } = require('uuid');
 const { videogame } = require('../../db');
 
-const createVideogame = async (nombre, descripcion, plataformas, image, fechaLanzamiento, rating, genero, isDB) => {
+const createVideogame = async (nombre, descripcion, plataformas, imagen, fechaLanzamiento, rating, genero, isDB) => {
   const newVideogame = await videogame.create({
+    id: uuidv4(),
     nombre,
     descripcion,
     plataformas,
-    image,
+    imagen,
     fechaLanzamiento,
     rating,
     genero,

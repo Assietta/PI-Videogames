@@ -118,7 +118,7 @@
 }
 
 
-label[for="image"] {
+label[for="imagen"] {
   display: flex;
   margin-bottom: 10px;
 }
@@ -145,7 +145,7 @@ label[for="image"] {
   align-items: center;
 }
 
-.imageContainer {
+.imagenContainer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -156,7 +156,7 @@ label[for="image"] {
   position: relative;
 }
 
-.image {
+.imagen {
   position: absolute;
   top: 0;
   left: 0;

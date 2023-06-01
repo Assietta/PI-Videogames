@@ -8,13 +8,11 @@ const SearchBar = () => {
   const [name, setName] = useState("");
   const videogames = useSelector((state) => state.videogames);
 
-  // useEffect(() => {
-  //   if (name.trim() !== "") {
-  //     dispatch(getName(name));
-  //   } else {
-  //     dispatch(getVideogames());
-  //   }
-  // }, [name, dispatch]);
+  useEffect(() => {
+    if (name.trim() !== "") {
+      dispatch(getName(name));
+    } 
+  }, [name, dispatch]);
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value;

@@ -1,19 +1,19 @@
 import Card from '../Card/Card.jsx';
-import style from './Cards.module.css'
+import style from './Cards.module.css'// eslint-disable-next-line
 import { useSelector, useDispatch } from "react-redux"
 import Paginado from '../Paginado/paginado.jsx';
 import { useState, useEffect } from 'react';
 
 
-export default function Cards() {
+export default function Cards() {// eslint-disable-next-line
    const dispatch = useDispatch();
    const videogames = useSelector(state => state.videogames);
 
-   const [currentPage, setCurrentPage] = useState(1);
+   const [currentPage, setCurrentPage] = useState(1);// eslint-disable-next-line
    const [VideogamesPerPage, setVideogamesPerPage] = useState(15);
    const indexOfLastVideogame = currentPage * VideogamesPerPage;
    const indexOfFirstVideogame = indexOfLastVideogame - VideogamesPerPage;
-   const currentVideogames = videogames.slice(indexOfFirstVideogame, indexOfLastVideogame);
+   const currentVideogames = Array.isArray(videogames) ? videogames.slice(indexOfFirstVideogame, indexOfLastVideogame) : [];
 
    useEffect(() => {
       setCurrentPage(1);

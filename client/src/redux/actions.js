@@ -9,33 +9,34 @@ export const FILTER_BY_GENRE = 'FILTER_BY_GENRE'
 export const ORDER_BY_NAME = 'ORDER_BY_NAME'
 export const ORDER_BY_ATAQUE = 'ORDER_BY_ATAQUE'
 export const POST_VIDEOGAMES = 'POST_VIDEOGAMES'
-// export function getVideogames(){
-//     return async function (dispatch){
-//         try {
-//             const response = await axios.get("/videogame");
-//             dispatch({
-//                 type: GET_VIDEOGAMES,
-//                 payload: response.data
-//             })
-//         } catch (error) {
-//             console.error("Error while getting videogames:", error);
-//         }
-//     }
-// }
 
-// export function getGenres(){
-//     return async function (dispatch){
-//         try {
-//             const response = await axios.get("/genres");
-//             dispatch({
-//                 type: GET_GENRES,
-//                 payload: response.data
-//             })
-//         } catch (error) {
-//             console.error("Error while getting genres:", error);
-//         }
-//     }
-// }
+export function getVideogames(){
+    return async function (dispatch){
+        try {
+            const response = await axios.get("/videogame");
+            dispatch({
+                type: GET_VIDEOGAMES,
+                payload: response.data
+            })
+        } catch (error) {
+            console.error("Error while getting videogames:", error);
+        }
+    }
+}
+
+export function getGenres(){
+    return async function (dispatch){
+        try {
+            const response = await axios.get("/genres");
+            dispatch({
+                type: GET_GENRES,
+                payload: response.data
+            })
+        } catch (error) {
+            console.error("Error while getting genres:", error);
+        }
+    }
+}
 
 export const getName = (name) => {
     console.log(name)

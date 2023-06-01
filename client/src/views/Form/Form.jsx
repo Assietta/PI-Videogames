@@ -1,6 +1,6 @@
 import style from './Form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-// import { postPokemon, getGenres } from '../../redux/actions';
+import { postVideogames, getGenres } from '../../redux/actions';
 import React, { useEffect, useState, useRef } from 'react';
 
 const Form = () => {
@@ -12,7 +12,7 @@ const Form = () => {
   const [genreError, setGenreError] = useState('');
   const [input, setInput] = useState({
     nombre: '',
-    image: '',
+    imagen: '',
     descripcion: '',
     plataformas: '',
     fechaLanzamiento: '',
@@ -21,12 +21,17 @@ const Form = () => {
 });
 const [errorMessages, setErrorMessages] = useState({
     nombre: '',
-    image: '',
+    imagen: '',
     rating: '',
     fechaLanzamiento: '',
     plataformas: '',
     genero: '',
 });
+
+useEffect(() => {
+  dispatch(getGenres());
+}, [dispatch]);
+
 
 const handleInputChange = (event) => {
   const { name, value } = event.target;
@@ -45,12 +50,12 @@ const handleInputChange = (event) => {
     setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
   }
 
-  // Validar imagen
-  if (name === 'image') {
+  // Validar imagenn
+  if (name === 'imagen') {
     const isValid = isValidUrl(value);
     setErrorMessages((prevErrorMessages) => ({
       ...prevErrorMessages,
-      [name]: isValid ? '' : 'La imagen es inválida, inserte URL',
+      [name]: isValid ? '' : 'La imagenn es inválida, inserte URL',
     }));
   }
 
@@ -110,23 +115,23 @@ const handleInputChange = (event) => {
 
 const handleSubmit = (event) => {
     event.preventDefault();
-    const { nombre, image, descripcion, plataformas, fechaLanzamiento, rating, genero } = input;
+    const { nombre, imagen, descripcion, plataformas, fechaLanzamiento, rating, genero } = input;
     const videogamesData = {
       nombre,
-      image,
+      imagen,
       descripcion,
       plataformas,
       fechaLanzamiento,
       rating,
       genero,
     };
-
+    dispatch(postVideogames(videogamesData));
     console.log(videogamesData);
     
     formRef.current.reset();
     setInput({
       nombre: '',
-      image: '',
+      imagen: '',
       descripcion: '',
       plataformas: '',
       fechaLanzamiento: '',
@@ -135,7 +140,7 @@ const handleSubmit = (event) => {
     });
     setErrorMessages({
         nombre: '',
-        image: '',
+        imagen: '',
         rating: '',
         fechaLanzamiento: '',
         plataformas: '',
@@ -225,9 +230,9 @@ const handlePlataformaChange = (event) => {
             <input placeholder='Escriba un Nombre' type="text" name="nombre" value={input.nombre} onChange={handleInputChange} onBlur={handleInputChange}/>
                 {errorMessages.nombre && <p>{errorMessages.nombre}</p>}
                         
-            <label htmlFor="image">Imagen: </label>
-            <input placeholder='Inserte una URL' type="url" name="image" value={input.image} onChange={handleInputChange} onBlur={handleInputChange}/>
-                {errorMessages.image && <p>{errorMessages.image}</p>}   
+            <label htmlFor="imagen">imagenn: </label>
+            <input placeholder='Inserte una URL' type="url" name="imagen" value={input.imagen} onChange={handleInputChange} onBlur={handleInputChange}/>
+                {errorMessages.imagen && <p>{errorMessages.imagen}</p>}   
         
             <label htmlFor="fechalanzamiento">Fecha de Lanzamiento  (Formato YYYY-MM-DD): </label>
             <input placeholder='YYYY-MM-DD' type="text" name="fechaLanzamiento" value={input.fechaLanzamiento} onChange={handleInputChange} onBlur={handleInputChange}/>
@@ -286,8 +291,8 @@ const handlePlataformaChange = (event) => {
       <div className={style.presentacion}>
         <div className={style.card}>
           <div className={style.front}>
-            <div className={style.imageContainer}>
-              <img src={input.image} alt={input.image} className={style.image} />
+            <div className={style.imagenContainer}>
+              <img src={input.imagen} alt={input.imagen} className={style.imagen} />
             </div>
               <h2 className={style.name}>{input.nombre}</h2>
           </div>
