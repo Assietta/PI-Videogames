@@ -64,19 +64,19 @@ const handleInputChange = (event) => {
   }
   
 
- // Validar rating
-if (name === 'rating') {
-  let formattedRating = value.trim() === '' ? '0.00' : formatRating(value);
-  let errorMessage = '';
-  if (formattedRating === '0.00' || parseFloat(formattedRating) < 0 || parseFloat(formattedRating) > 10) {
-    errorMessage = 'El rating es inválido';
+  // Validar rating
+  if (name === 'rating') {
+    let formattedRating = value.trim() === '' ? '0.00' : formatRating(value);
+    let errorMessage = '';
+    if (formattedRating === '0.00' || parseFloat(formattedRating) < 0 || parseFloat(formattedRating) > 10) {
+      errorMessage = 'El rating es inválido';
+    }
+    setErrorMessages((prevErrorMessages) => ({
+      ...prevErrorMessages,
+      [name]: errorMessage,
+    }));
+    setInput((prevInput) => ({ ...prevInput, [name]: formattedRating }));
   }
-  setErrorMessages((prevErrorMessages) => ({
-    ...prevErrorMessages,
-    [name]: errorMessage,
-  }));
-  setInput((prevInput) => ({ ...prevInput, [name]: formattedRating }));
-}
 
   // Validar descripcion
   if (name === 'descripcion') {
@@ -87,25 +87,25 @@ if (name === 'rating') {
     setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
   }
 
-// Validar plataformas
-if (name === 'plataforma') {
-  let errorMessage = '';
-  if (value.length === 0) {
-    errorMessage = 'Debe seleccionar al menos una plataforma';
+  // Validar plataformas
+  if (name === 'plataforma') {
+    let errorMessage = '';
+    if (value.length === 0) {
+      errorMessage = 'Debe seleccionar al menos una plataforma';
+    }
+    setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
   }
-  setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
-}
 
-// Validar generos
-if (name === 'genre') {
-  let errorMessage = '';
-  if (value.length === 0) {
-    errorMessage = 'Debe seleccionar al menos un genero';
+  // Validar generos
+  if (name === 'genre') {
+    let errorMessage = '';
+    if (value.length === 0) {
+      errorMessage = 'Debe seleccionar al menos un genero';
+    }
+    setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
   }
-  setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
-}
 
-};
+  };
 
 
 const handleSubmit = (event) => {
@@ -145,22 +145,22 @@ const handleSubmit = (event) => {
 
   
 const isValidUrl = (url) => {
-      return url.startsWith('http://') || url.startsWith('https://');
-    };
+    return url.startsWith('http://') || url.startsWith('https://');
+  };
   
 const formatRating = (rating) => {
-      let formattedRating = parseFloat(rating).toFixed(2);
-      if (formattedRating.length > 4) {
-        formattedRating = formattedRating.slice(0, 4);
-      }
-      return formattedRating;
-    };
+    let formattedRating = parseFloat(rating).toFixed(2);
+    if (formattedRating.length > 4) {
+      formattedRating = formattedRating.slice(0, 4);
+    }
+    return formattedRating;
+  };
   
 const isValidDate = (date) => {
-      return /^\d{4}-\d{2}-\d{2}$/.test(date);
+    return /^\d{4}-\d{2}-\d{2}$/.test(date);
   };
 
-  const handleGenreChange = (event) => {
+const handleGenreChange = (event) => {
     const { value, checked } = event.target;
     if (checked) {
       setInput((prevInput) => ({
@@ -187,8 +187,7 @@ const isValidDate = (date) => {
     }
   };
   
-
-  const handlePlataformaChange = (event) => {
+const handlePlataformaChange = (event) => {
     const { value, checked } = event.target;
     if (checked) {
       setInput((prevInput) => ({
@@ -216,7 +215,6 @@ const isValidDate = (date) => {
       }
     }
   };
-  
   
   return (
     <div className={style.container}>
