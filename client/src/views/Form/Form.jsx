@@ -8,6 +8,11 @@ const Form = () => {
   const genres = useSelector((state) => state.genres);
   const plataformas = useSelector((state) => state.plataformas);
   const formRef = useRef(null);
+  const [platformError, setPlatformError] = useState('');
+const [genreError, setGenreError] = useState('');
+
+
+
 
   const [input, setInput] = useState({
     nombre: '',
@@ -25,6 +30,7 @@ const [errorMessages, setErrorMessages] = useState({
     rating: '',
     fechaLanzamiento: '',
 });
+console.log(errorMessages);
 
 const handleInputChange = (event) => {
   const { name, value } = event.target;
@@ -94,7 +100,6 @@ if (name === 'plataforma') {
   }
   setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
 }
-
   
 };
 
@@ -106,7 +111,7 @@ const handleSubmit = (event) => {
 
     // Validar nombre
     if (input.nombre.trim() === '' || input.nombre.includes(' ') || input.nombre.length > 20) {
-      errors.nombre = 'El nombre es inválido';
+      errors.nombre = 'El nombre es magico';
     }
 
     // Validar imagen
@@ -115,15 +120,30 @@ const handleSubmit = (event) => {
     }
 
     // Validar rating
-    if (input.rating === '0.00') {
+    if (input.rating === '') {
         errors.rating = 'El rating es inválido';
     }
+
+    // Validar descripcion
+    if (input.descripcion === '') {
+      errors.descripcion = 'La descripcion es invalida';
+  }
 
     // Validar fecha de lanzamiento
     if (!isValidDate(input.fechaLanzamiento)) {
       errors.fechaLanzamiento = 'La fecha de lanzamiento es inválida';
     }
-    
+
+    // Validar selección de plataforma
+    if (input.plataformas.length === 0) {
+      setPlatformError('Debe seleccionar al menos una plataforma');
+    }
+
+    // Validar selección de género
+    if (input.genero.length === 0) {
+      setGenreError('Debe seleccionar al menos un género');
+    }
+        
 
     if (Object.keys(errors).length > 0) {
       setErrorMessages(errors);
@@ -180,18 +200,22 @@ const handleSubmit = (event) => {
   };
 
     const handleGenreChange = (event) => {
-    const { value, checked } = event.target;
-    if (checked) {
-      setInput((prevInput) => ({
-        ...prevInput,
-        genero: [...prevInput.genero, value],
-      }));
-    } else {
-      setInput((prevInput) => ({
-        ...prevInput,
-        genero: prevInput.genero.filter((genre) => genre !== value),
-      }));
-    }
+      const { value, checked } = event.target;
+      if (checked) {
+        setInput((prevInput) => ({
+          ...prevInput,
+          genero: [...prevInput.genero, value],
+        }));
+        setGenreError('');
+      } else {
+        setInput((prevInput) => ({
+          ...prevInput,
+          genero: prevInput.genero.filter((genre) => genre !== value),
+        }));
+        if (input.genero.length === 1) {
+          setGenreError('Debe seleccionar al menos un género');
+        }
+      }
   };
 
   const handlePlataformaChange = (event) => {
@@ -201,11 +225,15 @@ const handleSubmit = (event) => {
         ...prevInput,
         plataformas: [...prevInput.plataformas, value],
       }));
+      setPlatformError('');
     } else {
       setInput((prevInput) => ({
         ...prevInput,
         plataformas: prevInput.plataformas.filter((plataforma) => plataforma !== value),
       }));
+      if (input.plataformas.length === 1) {
+        setPlatformError('Debe seleccionar al menos una plataforma');
+      }
     }
   };
 
@@ -240,46 +268,46 @@ const handleSubmit = (event) => {
                     <textarea placeholder='este es un videojuego muy bueno ya que tiene muchas funcionalidades y cosas nuevas experimentales....' className={style.descripcion} type="text" name="descripcion" value={input.descripcion} onChange={handleInputChange} onBlur={handleInputChange}/>
                     {errorMessages.descripcion && <p>{errorMessages.descripcion}</p>}
                 </div>
-        <div className={style.div3}>
+                <div className={style.div3}>
+  <label htmlFor="plataformas">Plataformas: </label>
+  <div className={style.checktipes}>
+    {plataformas.map((plataforma) => (
+      <label key={plataforma}>
+        <input
+          type="checkbox"
+          name="plataforma"
+          value={plataforma}
+          checked={input.plataformas.includes(plataforma)}
+          onChange={handlePlataformaChange}
+        />
+        {plataforma.charAt(0).toUpperCase() + plataforma.slice(1)}
+      </label>
+    ))}
+  </div>
+  {platformError && <p>{platformError}</p>}
+</div>
 
-        <label htmlFor="plataformas">Plataformas: </label>
-        <div className={style.checktipes}>
-          {plataformas.map((plataforma) => (
-            <label key={plataforma} >
-              <input
-                type="checkbox"
-                name="plataforma"
-                value={plataforma}
-                checked={input.plataformas.includes(plataforma)}
-                onChange={handlePlataformaChange}
-              />
-              {plataforma.charAt(0).toUpperCase() + plataforma.slice(1)}
-            </label>
-          ))}
-        </div>
-        {errorMessages.plataforma && <p>{errorMessages.plataforma}</p>}
-        </div>
-        <div className={style.div4}>
+<div className={style.div4}>
+  <label htmlFor="genre">Género(s): </label>
+  <div className={style.checktipes}>
+    {genres.map((genre) => (
+      <label key={genre} className={style.checkboxes}>
+        <input
+          type="checkbox"
+          name="genre"
+          value={genre}
+          checked={input.genero.includes(genre)}
+          onChange={handleGenreChange}
+        />
+        {genre.charAt(0).toUpperCase() + genre.slice(1)}
+      </label>
+    ))}
+  </div>
+  {genreError && <p>{genreError}</p>}
+</div>
 
-        <label htmlFor="genre">Genero(s): </label>
-        <div className={style.checktipes}>
-          {genres.map((genre) => (
-            <label key={genre} className={style.checkboxes}>
-              <input
-                type="checkbox"
-                name="genre"
-                value={genre}
-                checked={input.genero.includes(genre)}
-                onChange={handleGenreChange}
-              />
-              {genre.charAt(0).toUpperCase() + genre.slice(1)}
-            </label>
-          ))}
         </div>
-        {errorMessages.genre && <p>{errorMessages.genre}</p>}
-        </div>
-        </div>
-        <button type="submit" id="submit-button">Crear Videogame</button>
+        <button type="submit" id="submit-button" disabled={Object.values(errorMessages).some((message) => message !== '') || Object.values(input).some((value) => value === '')}>Crear Videogame</button>
       </form>
       <div className={style.presentacion}>
         <div className={style.card}>
