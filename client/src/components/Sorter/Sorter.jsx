@@ -45,7 +45,7 @@ export default function Sorter({ selectedSort, setSelectedSort }){
             onChange={handlerSort}
             name=""
             id=""
-            className={style.sortSelect}
+            className={style.sortSelect1}
           >
             <option hidden>Ordenar Alfabeticamente:</option>
             <option value="asc" className={style.sortOption}>
@@ -59,7 +59,7 @@ export default function Sorter({ selectedSort, setSelectedSort }){
             onChange={handlerSort2}
             name=""
             id=""
-            className={style.sortSelect}
+            className={style.sortSelect2}
           >
             <option hidden> Ordenar Por Ataque:</option>
             <option value="ratmin" className={style.sortOption}>

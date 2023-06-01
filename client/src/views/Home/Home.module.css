@@ -2,46 +2,53 @@ body{
   background-color: #151515;
 }
 
-.acomodo {
-  margin-left: 50px;
+.contenedor {
+  display: flex;
 }
 
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background-color: yellow;
-  }
-  
-  .search-bar {
-    margin-top: 50px;
-    flex-grow: 1;
-    background-color: aliceblue;
-  }
-  
-  .filter {
-    display: flex;
-    background-color: aliceblue;
-  }
-  
-  
+  display: flex;
+  flex-direction: column;
+  background-color: #202020;
+  width: 25%;
+  color: white;
+}
+
+.fondo {
+  flex: 1;
+  width: 100%;
+}
+
+.acomodo {
+
+  width: 91%;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sorter{
  
-  
-  .loadinggif {
-    background-repeat: no-repeat;
-    margin-left: 720px;
-    margin-top: 100px;
-  }
+  margin-top: 50px;
+  height: 150px;
+}
 
-  .textogif {
-    margin-left: 860px;
-  }
+.filterdb {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+ 
+}
 
-  .filterdb {
-    min-width: 20%;
-    background-color: yellow;
-  }
+.filtergenre {
+ 
+ padding: 20px;
+ height: 500px;
+}
 
-  .filtertipos {
-   background-color: yellow;
-  }
+
+
