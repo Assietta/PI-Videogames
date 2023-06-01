@@ -282,6 +282,7 @@ const handlePlataformaChange = (event) => {
         </div>
           <button type="submit" id="submit-button" disabled={ Object.values(errorMessages).some((message) => message !== '') || Object.values(input).some((value) => value === '') || input.genero.length === 0 || input.plataformas.length === 0 }>Crear Videogame</button>
       </form>
+
       <div className={style.presentacion}>
         <div className={style.card}>
           <div className={style.front}>
@@ -290,7 +291,7 @@ const handlePlataformaChange = (event) => {
             </div>
               <h2 className={style.name}>{input.nombre}</h2>
           </div>
-          <div>
+          <div className={style.genero}>
             {input.genero.map((genre) => (
               <span key={genre} className={style.tipo}>{genre}</span>
             ))}
