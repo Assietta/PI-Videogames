@@ -206,31 +206,67 @@ label[for="imagen"] {
   text-align: center;
 }
 
-/* Estilo css para la checkboxes*/
+/* Estilo css para la checkboxesplat*/
 
-.checktipes {
-  display: flex;
-  flex-wrap: wrap;
+.checkboxesplat {
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  display: inline-block;
+  margin: 4px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: #303030;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+.checkboxesplat:hover{
+  background-color: #eec1ee;
+  color: rgb(128, 0, 128);
+}
+
+.checkboxesplat input[type="checkbox"]:checked + .checkboxText {
+  color: #ee8ae1;
+}
+
+.checkboxesplat input[type="checkbox"] {
+  display: none;
+}
+
+.checkboxText {
+  display: inline-block;
+}
+
+/* Estilo css para la checkboxes */
+
 .checkboxes {
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  font-size: 14px;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+  display: inline-block;
+  margin: 4px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: #303030;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.checkboxes:hover{
+  background-color: #C1EEC2;
+  color: green;
+}
+
+.checkboxes input[type="checkbox"]:checked + .checkboxText {
+  color: #91ee8a;
 }
 
 .checkboxes input[type="checkbox"] {
-  margin-right: 5px;
+  display: none;
 }
 
-.checkboxes input[type="checkbox"]:checked + span {
-  font-weight: bold;
+.checkboxText {
+  display: inline-block;
 }
-
-.checkboxes span {
-  text-transform: capitalize;
-}
+  
 
 

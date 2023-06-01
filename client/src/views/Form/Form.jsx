@@ -252,7 +252,7 @@ const handlePlataformaChange = (event) => {
             <label htmlFor="plataformas">Plataformas: </label>
             <div className={style.checktipes}>
               {plataformas.map((plataforma) => (
-                  <label key={plataforma}>
+                  <label key={plataforma} className={style.checkboxesplat}>
                     <input
                       type="checkbox"
                       name="plataforma"
@@ -260,7 +260,9 @@ const handlePlataformaChange = (event) => {
                       checked={input.plataformas.includes(plataforma)}
                       onChange={handlePlataformaChange}
                     />
+                     <span className={style.checkboxText}>
                       {plataforma.charAt(0).toUpperCase() + plataforma.slice(1)}
+                      </span>
                   </label>
               ))}
             </div>      
@@ -278,12 +280,15 @@ const handlePlataformaChange = (event) => {
                     checked={input.genero.includes(genre)}
                     onChange={handleGenreChange}
                   />
-                  {genre.charAt(0).toUpperCase() + genre.slice(1)}
+                  <span className={style.checkboxText}>
+                    {genre.charAt(0).toUpperCase() + genre.slice(1)}
+                  </span>
                 </label>
               ))}
             </div>
-                {genreError && <p>{genreError}</p>}
-          </div>
+            {genreError && <p>{genreError}</p>}
+        </div>
+
         </div>
           <button type="submit" id="submit-button" disabled={ Object.values(errorMessages).some((message) => message !== '') || Object.values(input).some((value) => value === '') || input.genero.length === 0 || input.plataformas.length === 0 }>Crear Videogame</button>
       </form>
