@@ -1,52 +1,52 @@
 const { DataTypes } = require('sequelize');
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
+
 module.exports = (sequelize) => {
-  // defino el modelo
   sequelize.define('videogame', {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      autoIncrement: true
     },
-    name: {
+    nombre: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [2, 100] // Limita la longitud entre 2 y 100 caracteres
-      }
+        len: [2, 100],
+      },
     },
-    
-    description: {
+    descripcion: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
-        len: [0, 500] // Limita la longitud a un máximo de 500 caracteres
-      }
+        len: [0, 500],
+      },
     },
-    
-    platforms: {
-      type: DataTypes.STRING,
-      unique: false
+    plataformas: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
     },
     image: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isUrl: true // Valida que el valor sea una URL válida
-      }
+        isUrl: true,
+      },
     },
-    
-    rating: {
+    fechaLanzamiento: {
       type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        isIn: [['E', 'T', 'M']] // Solo permite los valores 'E', 'T' o 'M'
-      }
+      allowNull: false,
     },
-    
+    rating: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    genero: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+    },
     isDB: {
-      type: DataTypes.BOOLEAN
-    }
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
   });
 };

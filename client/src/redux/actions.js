@@ -115,7 +115,7 @@ export function postVideogames(videogamesData){
           })
           console.log(videogamesData)
       } catch (error) {
-          console.error("Error while posting pokemon:", error.response.data.message);
+          console.error("Error while posting videogame:", error.response.data.message);
           console.log(error.message);
 
       }
