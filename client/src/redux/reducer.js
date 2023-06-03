@@ -4036,7 +4036,7 @@ const initialState = {
       ],
       "isDB": false
     }
-  ], // Inicializar como un array vacío
+  ],
   plataformas: [
     "PC",
     "PlayStation 5",
@@ -4073,7 +4073,13 @@ const initialState = {
     "3DO",
     "Neo Geo"
   ],
-  
+
+
+
+  apifilter: [],
+  genrefilter:[],
+  selectedapi: [],
+  selectedgenres: [],
 };
 
 // const initialState = {
@@ -4128,12 +4134,12 @@ const rootReducer = (state = initialState, action) => {
         allgames: action.payload,
         genrefilter: action.payload,
       };
-      case GET_GENRES:
+    case GET_GENRES:
         return {
           ...state,
           genres: action.payload,
         };
-      case GET_NAME:
+    case GET_NAME:
         const name = action.payload.toLowerCase();
         return {
           ...state,
@@ -4141,7 +4147,7 @@ const rootReducer = (state = initialState, action) => {
             videogame && videogame.nombre && videogame.nombre.toLowerCase().includes(name)
         ),
       };
-      case GET_ID:
+    case GET_ID:
         return {
           ...state,
           videogamesID: action.payload,
@@ -4150,36 +4156,67 @@ const rootReducer = (state = initialState, action) => {
 
 
         case FILTER_BY_CREATED: {
-          let filteredVideogames;
-          let filteredGenres;
+          let selectedapi = action.payload;
+          let selectedgenres = state.selectedgenres;
+          let filteredbyapi;
+          let filteredbygenre;
         
-          if (action.payload === null) {
-            filteredVideogames = state.allgames;
-            filteredGenres = state.allgames;
+          if (selectedgenres.length > 0) {
+            if (selectedapi === null) {
+              filteredbyapi = state.allgames;
+              filteredbygenre = state.allgames.filter((videogame) =>
+                selectedgenres.every((genre) => videogame.genero.includes(genre))
+              );
+            } else {
+              filteredbyapi = state.allgames.filter(
+                (videogame) => videogame.isDB === selectedapi
+              );
+              filteredbygenre = filteredbyapi.filter((videogame) =>
+                selectedgenres.every((genre) => videogame.genero.includes(genre))
+              );
+            }
+          } else if (selectedapi === null) {
+            filteredbyapi = state.allgames;
+            filteredbygenre = state.allgames;
           } else {
-            filteredVideogames = state.allgames.filter((videogame) => videogame.isDB === action.payload);
-            filteredGenres = state.allgames.filter((videogame) => videogame.isDB === action.payload);
+            filteredbyapi = state.allgames.filter(
+              (videogame) => videogame.isDB === selectedapi
+            );
+            filteredbygenre = filteredbyapi;
           }
         
           return {
             ...state,
-            videogames: filteredVideogames,
-            genrefilter: filteredGenres
+            videogames: filteredbygenre,
+            genrefilter: filteredbygenre,
+            selectedapi: selectedapi,
           };
         }
-        case FILTER_BY_GENRE:
-          const selectedGenres = action.payload;
-          const filteredVideogames = state.genrefilter.filter((videogame) => {
-            return selectedGenres.every((genre) => videogame.genero.includes(genre));
-          });
+        
+        case FILTER_BY_GENRE: {
+          const selectedgenres = action.payload;
+        
+          let filteredbygenre;
+          let filteredbyapi = state.selectedapi ? state.videogames : state.allgames;
+        
+          if (selectedgenres.length > 0) {
+            filteredbygenre = filteredbyapi.filter((videogame) =>
+              selectedgenres.every((genre) => videogame.genero.includes(genre))
+            );
+          } else {
+            filteredbygenre = filteredbyapi;
+          }
+        
           return {
             ...state,
-            videogames: filteredVideogames,
+            videogames: filteredbygenre,
+            selectedgenres: action.payload,
           };
+        }
+        
 
 
-
-        case ORDER_BY_NAME:
+    case ORDER_BY_NAME:
           const sortedArr = [...state.videogames]; // Crear una copia del array
           sortedArr.sort((a, b) => {
             const nameA = a.nombre.toLowerCase();
@@ -4196,11 +4233,7 @@ const rootReducer = (state = initialState, action) => {
             ...state,
             videogames: sortedArr,
           };
-        
-
-
-
-          case ORDER_BY_ATAQUE:
+    case ORDER_BY_ATAQUE:
             const sortedRating = [...state.videogames]; // Crear una copia del array
             sortedRating.sort((a, b) => {
               const ratingA = parseFloat(a.rating);
@@ -4215,31 +4248,13 @@ const rootReducer = (state = initialState, action) => {
             return {
               ...state,
               videogames: sortedRating,
-            };
-            
-            case POST_VIDEOGAMES:
+            };    
+    case POST_VIDEOGAMES:
               return {
                 ...state,
                 videogames: action.payload,
               };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      default:
+    default:
             return state;
           }
         };
