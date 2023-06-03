@@ -5,7 +5,7 @@ import style from './Filters.module.css'
 
 const FilterDB = () => {
   const dispatch = useDispatch();
-  const [isDB, setIsDB] = useState("");
+  const [isDB, setIsDB] = useState(null);
 
   useEffect(() => {
     if (isDB !== '') {
@@ -14,7 +14,7 @@ const FilterDB = () => {
   }, [isDB, dispatch]);
 
   const handleOrigenChange = (event) => {
-    setIsDB(event.target.value === "true");
+    setIsDB(event.target.value === "true" ? true : event.target.value === "false" ? false : null);
   };
 
 
@@ -42,6 +42,16 @@ const FilterDB = () => {
             onChange={handleOrigenChange}
           />
           Database
+        </label>
+        <label className={style.texto1}>
+          <input
+            type="radio"
+            name="origen"
+            value="null"
+            checked={isDB === null}
+            onChange={handleOrigenChange}
+          />
+          All
         </label>
       </div>
     </div>

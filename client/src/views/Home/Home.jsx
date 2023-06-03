@@ -7,11 +7,17 @@ import { SearchBar, FilterDB, Filter, Sorter } from "../../components/components
 const Home = () => {
   const dispatch = useDispatch();
   const [selectedSort, setSelectedSort] = useState('');
+  const videogames = useSelector((state) => state.videogames);
+  const genres = useSelector((state) => state.genres);
 
   useEffect(() => {
-    dispatch(getVideogames());
-    dispatch(getGenres());
-  }, [dispatch]);
+    if (videogames.length === 0) {
+      dispatch(getVideogames());
+    }
+    if (genres.length === 0) {
+      dispatch(getGenres());
+    }
+  }, [dispatch, videogames.length, genres.length]);
 
 
   return (

@@ -4146,24 +4146,38 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           videogamesID: action.payload,
         };
-      case FILTER_BY_CREATED:    
-        return {
-          ...state,
-          videogames: state.allgames.filter(
-            (videogame) => videogame.isDB === action.payload),
-          genrefilter: state.allgames.filter(
-            (videogame) => videogame.isDB === action.payload)
+
+
+
+        case FILTER_BY_CREATED: {
+          let filteredVideogames;
+          let filteredGenres;
+        
+          if (action.payload === null) {
+            filteredVideogames = state.allgames;
+            filteredGenres = state.allgames;
+          } else {
+            filteredVideogames = state.allgames.filter((videogame) => videogame.isDB === action.payload);
+            filteredGenres = state.allgames.filter((videogame) => videogame.isDB === action.payload);
+          }
+        
+          return {
+            ...state,
+            videogames: filteredVideogames,
+            genrefilter: filteredGenres
+          };
+        }
+        case FILTER_BY_GENRE:
+          const selectedGenres = action.payload;
+          const filteredVideogames = state.genrefilter.filter((videogame) => {
+            return selectedGenres.every((genre) => videogame.genero.includes(genre));
+          });
+          return {
+            ...state,
+            videogames: filteredVideogames,
           };
 
-      case FILTER_BY_GENRE:
-        const selectedGenres = action.payload;
-        const filteredVideogames = state.genrefilter.filter((videogame) => {
-          return selectedGenres.every((genre) => videogame.genero.includes(genre));
-        });
-        return {
-          ...state,
-          videogames: filteredVideogames,
-        };
+
 
         case ORDER_BY_NAME:
           const sortedArr = [...state.videogames]; // Crear una copia del array

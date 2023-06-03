@@ -1,7 +1,7 @@
 import style from './Form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { postVideogames, getGenres } from '../../redux/actions';
-import React, { useEffect, useState, useRef } from 'react';
+import { postVideogames } from '../../redux/actions';
+import React, { useState, useRef } from 'react';
 import { Error, Success, Warning } from './Error';
 
 const Form = () => {
@@ -29,11 +29,6 @@ const [errorMessages, setErrorMessages] = useState({
     plataformas: '',
     genero: '',
 });
-
-useEffect(() => {
-  dispatch(getGenres());
-}, [dispatch]);
-
 
 const handleInputChange = (event) => {
   const { name, value } = event.target;
