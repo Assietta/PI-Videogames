@@ -40,7 +40,7 @@ const Filter = () => {
 
   return (
     <div>
-      <h3 className={style.texto3}>FILTRAR POR Genero:</h3>
+      <h3 className={style.texto3}>Filter for Genre:</h3>
       <div className={style.tipos}>
         {genres.map((genres) => ( 
           <label key={genres} className={style.checkboxes}>

@@ -2,7 +2,7 @@ import style from './NavBar.module.css'
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import logo from './logo.png'
+import logo from './logo1.png'
 
 function NavBar() {
     return (
