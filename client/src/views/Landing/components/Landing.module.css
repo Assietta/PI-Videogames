@@ -57,3 +57,33 @@ html, body {
     white-space: nowrap;
   }
   
+/* Agrega estas reglas CSS a tu archivo Landing.module.css */
+
+/* Agrega estas reglas CSS a tu archivo Landing.module.css */
+
+.imagecontainer {
+  position: relative;
+  justify-content: right;
+  align-items: right;
+  margin-right: 300px;
+}
+
+.imagecontainer img {
+  position: absolute;
+  right: 0;
+  transition: transform 0.5s;
+  transform: translateX(0);
+}
+
+.imagecontainer:hover img:nth-child(1) {
+  transform: translateX(200px) rotate(30deg);
+}
+
+.imagecontainer:hover img:nth-child(2) {
+  transform: translateY(-100px);
+}
+
+.imagecontainer:hover img:nth-child(3) {
+  transform: translateX(-200px) rotate(-30deg);
+}
+
