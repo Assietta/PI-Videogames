@@ -6,9 +6,12 @@ import imagen3 from "./Sin título-6.png"
 const Landing = () => {
   return (
     <div className={`${style.container} ${style.background}`}>
+      <svg className={style.svg} viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#fff" d="M56.5,-27C69.7,-9.6,74.7,18.2,63.9,32C53.1,45.8,26.5,45.6,6.3,42C-14,38.4,-28.1,31.3,-33.7,20.5C-39.4,9.7,-36.7,-5,-29.7,-18.8C-22.7,-32.6,-11.3,-45.5,5.1,-48.5C21.6,-51.4,43.2,-44.4,56.5,-27Z" transform="translate(120 150)" />
+      </svg>
       <h1 className={style.title}>Bienvenido a Videogames-PI</h1>
       <p className={style.subtitle}>
-        Creado y Diseñado por <a href="https://www.linkedin.com/in/assietta/" className={style.link}>Jeremias Brussino</a>
+        Creado y Diseñado por <a href="https://www.linkedin.com/in/assietta/" className={style.link} target="_blank">Jeremias Brussino</a>
       </p>
       <div className={style.imagecontainer}>
         <img src={imagen} alt="Imagen 1" />
@@ -18,9 +21,6 @@ const Landing = () => {
       <div className={style["button-container"]}>
         <Link to="/Home" className={style.button}>Entrar</Link>
       </div>
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <path fill="#FF0066" d="M32.1,-22.9C41.7,-2,49.4,15.5,43.8,26.6C38.1,37.7,19.1,42.4,-0.5,42.7C-20.1,43,-40.2,38.9,-53.4,23.4C-66.6,7.9,-72.9,-18.9,-62.9,-40C-52.8,-61.1,-26.4,-76.5,-7.6,-72.2C11.3,-67.8,22.6,-43.7,32.1,-22.9Z" transform="translate(100 100)" />
-</svg>
     </div>
   );
   

@@ -6,7 +6,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: red;
+    background-color: #505050;
   }
   
   .navlist li {
@@ -21,7 +21,7 @@
   }
   
   .navlist li a:hover {
-    background-color: lightcoral;
+    background-color: #303030;
   }
   
   .active {
