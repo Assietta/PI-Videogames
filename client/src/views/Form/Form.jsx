@@ -2,6 +2,7 @@ import style from './Form.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { postVideogames, getGenres } from '../../redux/actions';
 import React, { useEffect, useState, useRef } from 'react';
+import { Error, Success, Warning } from './Error';
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -10,6 +11,7 @@ const Form = () => {
   const plataformas = useSelector((state) => state.plataformas);
   const [platformError, setPlatformError] = useState('');
   const [genreError, setGenreError] = useState('');
+  const [formSubmitted, setFormSubmitted] = useState(null);
   const [input, setInput] = useState({
     nombre: '',
     imagen: '',
@@ -61,19 +63,21 @@ const handleInputChange = (event) => {
 
   //validar fecha
   if (name === 'fechaLanzamiento') {
+    let formattedDate = isValidDate(value);
     let errorMessage = '';
     if (!isValidDate(value)) {
       errorMessage = 'La fecha de lanzamiento es inválida';
     }
     setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
+    setInput((prevInput) => ({ ...prevInput, [name]: formattedDate }));
   }
   
 
   // Validar rating
   if (name === 'rating') {
-    let formattedRating = value.trim() === '' ? '0.00' : formatRating(value);
+    let formattedRating = formatRating(value);
     let errorMessage = '';
-    if (formattedRating === '0.00' || parseFloat(formattedRating) < 0 || parseFloat(formattedRating) > 10) {
+    if (formattedRating === '0.00' || formattedRating < 0 || formattedRating > 5.01) {
       errorMessage = 'El rating es inválido';
     }
     setErrorMessages((prevErrorMessages) => ({
@@ -125,7 +129,15 @@ const handleSubmit = (event) => {
       rating,
       genero,
     };
-    dispatch(postVideogames(videogamesData));
+    dispatch(postVideogames(videogamesData))
+      .then(() => {
+        setFormSubmitted(true); // Actualiza el estado si se crea exitosamente el formulario
+        console.log('Videogame creado');
+      })
+      .catch((error) => {
+        setFormSubmitted(false); // Actualiza el estado si hay algún error al crear el formulario
+        console.log('Error al crear el videogame:', error);
+      });
     console.log(videogamesData);
     
     formRef.current.reset();
@@ -153,16 +165,44 @@ const isValidUrl = (url) => {
     return url.startsWith('http://') || url.startsWith('https://');
   };
   
-const formatRating = (rating) => {
-    let formattedRating = parseFloat(rating).toFixed(2);
+
+  const formatRating = (value) => {
+    let formattedRating = value;
+    if (formattedRating.length > 2) {
+      if (formattedRating.charAt(1) !== '.') {
+        formattedRating = formattedRating.slice(0, 1) + "." + formattedRating.slice(1, 4);
+      }
+    }
+  if (formattedRating > '5.00') {
+      formattedRating = '5.00';
+    }
     if (formattedRating.length > 4) {
       formattedRating = formattedRating.slice(0, 4);
     }
+    console.log(formattedRating);
     return formattedRating;
   };
   
-const isValidDate = (date) => {
-    return /^\d{4}-\d{2}-\d{2}$/.test(date);
+  
+  
+  
+  const isValidDate = (date) => {
+    let formattedDate = date;
+    if (formattedDate.length > 4) {
+      if (formattedDate.charAt(4) !== '-') {
+        formattedDate = formattedDate.slice(0, 4) + "-" + formattedDate.slice(4, 6);
+      }
+      if (formattedDate.length > 7) {
+        if (formattedDate.charAt(7) !== '-') {
+          formattedDate = formattedDate.slice(0, 7) + "-" + formattedDate.slice(7, 10);
+        }
+      }
+    }
+    if (formattedDate.length > 10) {
+      formattedDate = formattedDate.slice(0, 10);
+    }
+    console.log(formattedDate);
+    return formattedDate;
   };
 
 const handleGenreChange = (event) => {
@@ -222,19 +262,33 @@ const handlePlataformaChange = (event) => {
   };
   
   return (
+    
     <div className={style.container}>
+      
       <form className={style.formulario} onSubmit={handleSubmit} ref={formRef}>
+        
+        <div className={style.buttonContainer}>
+          <button className={style.button} type="submit" id="submit-button" disabled={Object.values(errorMessages).some((message) => message !== '') || Object.values(input).some((value) => value === '') || input.genero.length === 0 || input.plataformas.length === 0}>Create a videogame</button>
+          {formSubmitted === true ? (
+            <Success />
+          ) : formSubmitted === false ? (
+            <Error />
+          ) : (
+            <Warning />
+          )}
+        </div>
+          
         <div className={style.grid}>
           <div className={style.div1}>
-            <label htmlFor="name">Nombre: </label>
-            <input placeholder='Escriba un Nombre' type="text" name="nombre" value={input.nombre} onChange={handleInputChange} onBlur={handleInputChange}/>
+            <label htmlFor="name">Name: </label>
+            <input placeholder='Write a name...' type="text" name="nombre" value={input.nombre} onChange={handleInputChange} onBlur={handleInputChange}/>
                 {errorMessages.nombre && <p>{errorMessages.nombre}</p>}
                         
-            <label htmlFor="imagen">imagenn: </label>
-            <input placeholder='Inserte una URL' type="url" name="imagen" value={input.imagen} onChange={handleInputChange} onBlur={handleInputChange}/>
+            <label htmlFor="imagen">Image: </label>
+            <input placeholder='Insert a URL' type="url" name="imagen" value={input.imagen} onChange={handleInputChange} onBlur={handleInputChange}/>
                 {errorMessages.imagen && <p>{errorMessages.imagen}</p>}   
         
-            <label htmlFor="fechalanzamiento">Fecha de Lanzamiento  (Formato YYYY-MM-DD): </label>
+            <label htmlFor="fechalanzamiento">Release date: </label>
             <input placeholder='YYYY-MM-DD' type="text" name="fechaLanzamiento" value={input.fechaLanzamiento} onChange={handleInputChange} onBlur={handleInputChange}/>
                 {errorMessages.fechaLanzamiento && <p>{errorMessages.fechaLanzamiento}</p>}
 
@@ -290,7 +344,6 @@ const handlePlataformaChange = (event) => {
         </div>
 
         </div>
-          <button type="submit" id="submit-button" disabled={ Object.values(errorMessages).some((message) => message !== '') || Object.values(input).some((value) => value === '') || input.genero.length === 0 || input.plataformas.length === 0 }>Crear Videogame</button>
       </form>
 
       <div className={style.presentacion}>

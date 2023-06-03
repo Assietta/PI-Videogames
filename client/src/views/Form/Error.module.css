@@ -1,0 +1,87 @@
+/* Estilos de Error.module.css */
+.container2 {
+    display: flex;
+    align-items: center;
+}
+
+.container{
+  width: 500px;
+}
+
+.containerE {
+    background-color: #FEF2F2;
+    border: 1px solid #F87171;
+    border-radius: 4px;
+    color: #B91C1C;
+    font-size: 0.875rem;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .containerE > div {
+    margin-right: 1rem;
+  }
+  
+  .containerE svg {
+    height: 1rem;
+    width: 1rem;
+    margin-right: 0.5rem;
+  }
+  
+  .containerE p {
+    margin: 0;
+  }
+  
+
+
+.containerS {
+    background-color: #F0FFF4;
+    border: 1px solid #34D399;
+    border-radius: 4px;
+    color: #047857;
+    font-size: 0.875rem;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .containerS > div {
+    margin-right: 1rem;
+  }
+  
+  .containerS svg {
+    height: 1rem;
+    width: 1rem;
+    margin-right: 0.5rem;
+  }
+  
+  .containerS p {
+    margin: 0;
+  }
+
+
+  .containerW {
+    background-color: #EFF6FF;
+    border: 1px solid #60A5FA;
+    border-radius: 4px;
+    color: #1E3A8A;
+    font-size: 0.875rem;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .containerW > div {
+    margin-right: 1rem;
+  }
+  
+  .containerW svg {
+    height: 1rem;
+    width: 1rem;
+    margin-right: 0.5rem;
+  }
+  
+  .containerW p {
+    margin: 0;
+  }

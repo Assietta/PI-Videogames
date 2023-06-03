@@ -25,6 +25,7 @@
 }
 
 .div1{
+  margin-top: 20px;
   margin-bottom: -70px;
   margin-left: 50px;
   margin-right: 50px;
@@ -48,6 +49,7 @@
 
 
 .div2 {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -270,3 +272,40 @@ label[for="imagen"] {
   
 
 
+.success {
+  color: green;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.button {
+	font: inherit;
+	font-size: 1.25rem;
+	padding: 0.5em;
+	width: 50%;
+	font-weight: 500;
+	background-color: #34D399;
+	border-radius: 6px;
+	color: #fff;
+	border: 0;
+	&:focus {
+		outline: 0;
+	}
+  margin-right: 50px;
+  margin-left: 50px;
+  cursor: pointer;
+}
+
+.button:disabled{
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+
+.buttonContainer{
+  display: flex;
+}
