@@ -47,7 +47,7 @@ const handleInputChange = (event) => {
     setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
   }
 
-  // Validar imagenn
+  // Validar imagen
   if (name === 'imagen') {
     const isValid = isValidUrl(value);
     setErrorMessages((prevErrorMessages) => ({

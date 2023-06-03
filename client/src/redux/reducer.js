@@ -4152,10 +4152,7 @@ const rootReducer = (state = initialState, action) => {
           ...state,
           videogamesID: action.payload,
         };
-
-
-
-        case FILTER_BY_CREATED: {
+    case FILTER_BY_CREATED: {
           let selectedapi = action.payload;
           let selectedgenres = state.selectedgenres;
           let filteredbyapi;
@@ -4190,10 +4187,8 @@ const rootReducer = (state = initialState, action) => {
             videogames: filteredbygenre,
             genrefilter: filteredbygenre,
             selectedapi: selectedapi,
-          };
-        }
-        
-        case FILTER_BY_GENRE: {
+          };}    
+    case FILTER_BY_GENRE: {
           const selectedgenres = action.payload;
         
           let filteredbygenre;
@@ -4212,7 +4207,7 @@ const rootReducer = (state = initialState, action) => {
             videogames: filteredbygenre,
             selectedgenres: action.payload,
           };
-        }
+    }
         
 
 
