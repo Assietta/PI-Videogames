@@ -2,9 +2,10 @@ import style from "./Card.module.css";
 import { Link } from 'react-router-dom';
 
 export default function Card({ id, nombre, descripcion, plataformas, fechaLanzamiento, rating, genero, isDB, imagen }) {
+   window.scrollTo(0, 0);
    return (
       <div className={style.card}>
-         <Link to={`/detail/${id}`} className={style.link}>
+         <Link to={`/detail/${id}#`} className={style.link}>
          <div className={style.front}>
             <div className={style.imageContainer}>
                <img

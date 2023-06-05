@@ -1,4 +1,4 @@
-import { GET_VIDEOGAMES, GET_GENRES, GET_NAME, GET_ID, FILTER_BY_CREATED, FILTER_BY_GENRE, ORDER_BY_NAME, ORDER_BY_ATAQUE, POST_VIDEOGAMES} from "./actions";
+import { GET_VIDEOGAMES, GET_GENRES, GET_NAME, GET_ID, FILTER_BY_CREATED, FILTER_BY_GENRE, ORDER_BY_NAME, ORDER_BY_ATAQUE, POST_VIDEOGAMES, GET_LIKE} from "./actions";
 
 const initialState = {
   videogames: [
@@ -4080,6 +4080,7 @@ const initialState = {
   genrefilter:[],
   selectedapi: [],
   selectedgenres: [],
+  likevideogame: [],
 };
 
 // const initialState = {
@@ -4148,9 +4149,19 @@ const rootReducer = (state = initialState, action) => {
         ),
       };
     case GET_ID:
+        // return {
+        //   ...state,
+        //   videogamesID: action.payload,
+        // };
+      
+        let id = action.payload;
+        const filterid = state.allgames.filter((videogame) =>
+        String(videogame.id) === id
+      );
+
         return {
           ...state,
-          videogamesID: action.payload,
+          videogamesID: filterid,
         };
     case FILTER_BY_CREATED: {
           let selectedapi = action.payload;
@@ -4208,9 +4219,6 @@ const rootReducer = (state = initialState, action) => {
             selectedgenres: action.payload,
           };
     }
-        
-
-
     case ORDER_BY_NAME:
           const sortedArr = [...state.videogames]; // Crear una copia del array
           sortedArr.sort((a, b) => {
@@ -4249,6 +4257,16 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 videogames: action.payload,
               };
+    case GET_LIKE:
+                const genre = action.payload;
+                const like = state.allgames.filter((videogame) =>
+                  videogame.genero.some((genre) => videogame.genero.includes(genre))
+                );
+                return {
+                  ...state,
+                  likevideogame: like,
+              };
+
     default:
             return state;
           }

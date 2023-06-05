@@ -9,6 +9,7 @@ export const FILTER_BY_GENRE = 'FILTER_BY_GENRE'
 export const ORDER_BY_NAME = 'ORDER_BY_NAME'
 export const ORDER_BY_ATAQUE = 'ORDER_BY_ATAQUE'
 export const POST_VIDEOGAMES = 'POST_VIDEOGAMES'
+export const GET_LIKE = 'GET_LIKE'
 
 export function getVideogames(){
     return async function (dispatch){
@@ -48,18 +49,22 @@ export const getName = (name) => {
   
 
 export function getID(id){
-    return async function (dispatch){
-        try {
-            const response = await axios.get(`/videogame/${id}`);
-            dispatch({
-                type: GET_ID,
-                payload: response.data
-            })
-            console.log(response)
-        } catch (error) {
-            console.error("Error while getting types:", error);
-        }
-    }
+    // return async function (dispatch){
+    //     try {
+    //         const response = await axios.get(`/videogame/${id}`);
+    //         dispatch({
+    //             type: GET_ID,
+    //             payload: response.data
+    //         })
+    //         console.log(response)
+    //     } catch (error) {
+    //         console.error("Error while getting types:", error);
+    //     }
+    // };
+    return {
+        type: GET_ID,
+        payload: id,
+      };
 }
 
 export function filterByCreated(isDB) {
@@ -121,4 +126,11 @@ export function postVideogames(videogamesData){
 
       }
   }
+}
+
+export function getLike(genre){
+    return {
+        type: GET_LIKE,
+        payload: genre,
+      };
 }
