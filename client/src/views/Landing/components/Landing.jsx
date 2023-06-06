@@ -19,7 +19,7 @@ const Landing = () => {
         <img src={imagen3} alt="Imagen 3" />
       </div>
       <div className={style["button-container"]}>
-        <Link to="/Home" className={style.button}>Go Ahead!</Link>
+        <Link to="/Home" ><button  className={style.color}><span>Go Ahead!</span><i></i></button></Link>
       </div>
     </div>
   );
