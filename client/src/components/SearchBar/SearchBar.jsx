@@ -13,10 +13,13 @@ const SearchBar = () => {
   useEffect(() => {
     if (transcript.trim() !== "") {
       dispatch(getName(transcript));
-      console.log(transcript);
       resetTranscript();
     }
   }, [transcript, dispatch, resetTranscript]);
+
+  useEffect(() => {
+      dispatch(getName(name));
+  }, [name, dispatch]);
 
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
@@ -29,8 +32,7 @@ const SearchBar = () => {
   };
 
   const handleVoiceInput = () => {
-    SpeechRecognition.startListening({ language: ["es-ES", "en-US"] });
-
+    SpeechRecognition.startListening({ language: "es-ES" });
   };
 
   return (
