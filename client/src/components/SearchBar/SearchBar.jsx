@@ -37,6 +37,9 @@ const SearchBar = () => {
 
   return (
     <form className={styles.searchBar} onSubmit={handleSearch}>
+      <button className={styles.voicebutton} type="button" onClick={handleVoiceInput}>
+        Voice Search
+      </button>
       <input
         className={styles.input}
         type="text"
@@ -44,9 +47,6 @@ const SearchBar = () => {
         onChange={handleInputChange}
         placeholder="Search Videogame..."
       />
-      <button type="button" onClick={handleVoiceInput}>
-        Voice Search
-      </button>
       {videogames && videogames.name && (
         <div className={styles.result}>
           <h3>{videogames.name}</h3>

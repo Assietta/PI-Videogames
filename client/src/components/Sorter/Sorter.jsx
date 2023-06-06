@@ -47,7 +47,7 @@ export default function Sorter({ selectedSort, setSelectedSort }){
             id=""
             className={style.sortSelect1}
           >
-            <option hidden>Ordenar Alfabeticamente:</option>
+            <option hidden>Sort by Alphabet:</option>
             <option value="asc" className={style.sortOption}>
               A-Z
             </option>
@@ -61,7 +61,7 @@ export default function Sorter({ selectedSort, setSelectedSort }){
             id=""
             className={style.sortSelect2}
           >
-            <option hidden> Ordenar Por Ataque:</option>
+            <option hidden> Sort by Rating:</option>
             <option value="ratmin" className={style.sortOption}>
               Rating Max
             </option>
