@@ -38,11 +38,11 @@ const handleInputChange = (event) => {
   if (name === 'nombre') {
     let errorMessage = '';
     if (value.trim() === '') {
-      errorMessage = 'El nombre no puede estar vacío';
+      errorMessage = 'The name cant be null';
     } else if (value.startsWith(' ')) {
-      errorMessage = 'El nombre no puede empezar con espacios';
+      errorMessage = 'The name cant start whit a space';
     } else if (value.length > 20) {
-      errorMessage = 'El nombre no puede tener más de 20 caracteres';
+      errorMessage = 'The name cant be longer than 20 characters';
     }
     setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
   }
@@ -52,7 +52,7 @@ const handleInputChange = (event) => {
     const isValid = isValidUrl(value);
     setErrorMessages((prevErrorMessages) => ({
       ...prevErrorMessages,
-      [name]: isValid ? '' : 'La imagenn es inválida, inserte URL',
+      [name]: isValid ? '' : 'Incorrect image, insert an URL',
     }));
   }
 
@@ -73,7 +73,7 @@ const handleInputChange = (event) => {
     let formattedRating = formatRating(value);
     let errorMessage = '';
     if (formattedRating === '0.00' || formattedRating < 0 || formattedRating > 5.01) {
-      errorMessage = 'El rating es inválido';
+      errorMessage = 'The rating is wrong';
     }
     setErrorMessages((prevErrorMessages) => ({
       ...prevErrorMessages,
@@ -86,7 +86,7 @@ const handleInputChange = (event) => {
   if (name === 'descripcion') {
     let errorMessage = '';
     if (value.trim() === '') {
-      errorMessage = 'La descripcion no puede estar vacía';
+      errorMessage = 'The description cant be null';
     } 
     setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
   }
@@ -95,7 +95,7 @@ const handleInputChange = (event) => {
   if (name === 'plataforma') {
     let errorMessage = '';
     if (value.length === 0) {
-      errorMessage = 'Debe seleccionar al menos una plataforma';
+      errorMessage = 'Check at least one Platform';
     }
     setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
   }
@@ -104,7 +104,7 @@ const handleInputChange = (event) => {
   if (name === 'genre') {
     let errorMessage = '';
     if (value.length === 0) {
-      errorMessage = 'Debe seleccionar al menos un genero';
+      errorMessage = 'Check at least one Genre';
     }
     setErrorMessages((prevErrorMessages) => ({ ...prevErrorMessages, [name]: errorMessage }));
   }
@@ -127,11 +127,11 @@ const handleSubmit = (event) => {
     dispatch(postVideogames(videogamesData))
       .then(() => {
         setFormSubmitted(true); // Actualiza el estado si se crea exitosamente el formulario
-        console.log('Videogame creado');
+        console.log('Videogame created');
       })
       .catch((error) => {
         setFormSubmitted(false); // Actualiza el estado si hay algún error al crear el formulario
-        console.log('Error al crear el videogame:', error);
+        console.log('Error to create the videogame:', error);
       });
     console.log(videogamesData);
     
@@ -218,10 +218,10 @@ const handleGenreChange = (event) => {
         genero: prevInput.genero.filter((genre) => genre !== value),
       }));
       if (input.genero.length === 1) {
-        setGenreError('Debe seleccionar al menos un género');
+        setGenreError('Check at least one Genre');
         setErrorMessages((prevErrorMessages) => ({
           ...prevErrorMessages,
-          genero: 'Debe seleccionar al menos un género',
+          genero: 'Check at least one Genre',
         }));
       }
     }
@@ -247,10 +247,10 @@ const handlePlataformaChange = (event) => {
         ),
       }));
       if (input.plataformas.length === 1) {
-        setPlatformError('Debe seleccionar al menos una plataforma');
+        setPlatformError('Check at least one Platform');
         setErrorMessages((prevErrorMessages) => ({
           ...prevErrorMessages,
-          plataformas: 'Debe seleccionar al menos una plataforma',
+          plataformas: 'Check at least one Platform',
         }));
       }
     }
@@ -294,11 +294,11 @@ const handlePlataformaChange = (event) => {
                 {errorMessages.rating && <p>{errorMessages.rating}</p>}
 
             <label  htmlFor="descripcion">Descripcion: </label>
-            <textarea placeholder='este es un videojuego muy bueno ya que tiene muchas funcionalidades y cosas nuevas experimentales....' className={style.descripcion} type="text" name="descripcion" value={input.descripcion} onChange={handleInputChange} onBlur={handleInputChange}/>
+            <textarea placeholder='Embark on an epic adventure, where you must navigate treacherous challenges, uncover hidden secrets, and save the world from impending doom in this thrilling and immersive game.' className={style.descripcion} type="text" name="descripcion" value={input.descripcion} onChange={handleInputChange} onBlur={handleInputChange}/>
                 {errorMessages.descripcion && <p>{errorMessages.descripcion}</p>}
           </div>
           <div className={style.div3}>
-            <label htmlFor="plataformas">Plataformas: </label>
+            <label htmlFor="plataformas">Platforms: </label>
             <div className={style.checktipes}>
               {plataformas.map((plataforma) => (
                   <label key={plataforma} className={style.checkboxesplat}>
@@ -318,7 +318,7 @@ const handlePlataformaChange = (event) => {
                 {platformError && <p>{platformError}</p>}
           </div>
           <div className={style.div4}>
-            <label htmlFor="genre">Género(s): </label>
+            <label htmlFor="genre">Genre(s): </label>
             <div className={style.checktipes}>
               {genres.map((genre) => (
                 <label key={genre} className={style.checkboxes}>

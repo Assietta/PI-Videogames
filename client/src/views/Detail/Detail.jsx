@@ -22,17 +22,17 @@ const Detail = () => {
                 <div className={style.container}>
                     <div className={style.div1}>
                         <h1 className={style.title}>Id: {videogames[0].id}</h1>
-                        <h2 className={style.title}>Nombre: {videogames[0].nombre}</h2>
-                        <p className={style.texto}>Fecha de lanzamiento: {videogames[0].fechaLanzamiento}</p>
+                        <h2 className={style.title}>Name: {videogames[0].nombre}</h2>
+                        <p className={style.texto}>Relase Date: {videogames[0].fechaLanzamiento}</p>
                         <p className={style.texto}>Rating: {videogames[0].rating}</p>
-                        <p className={style.plat}>Plataformas:  </p>
+                        <p className={style.plat}>Platforms:  </p>
                             <div>
                                 {videogames[0].plataformas && Array.isArray(videogames[0].plataformas) && videogames[0].plataformas.map((plataformas) => (
                                     <span key={plataformas} className={style.genre}>{plataformas}</span>
                                 ))}
                             </div>
                        
-                        <p className={style.plat}> Generos: </p>
+                        <p className={style.plat}> Genres: </p>
                             <div>
                                 {videogames[0].genero && Array.isArray(videogames[0].genero) && videogames[0].genero.map((genero) => (
                                     <span key={genero} className={style.genre}>{genero}</span>
@@ -42,7 +42,7 @@ const Detail = () => {
                     </div>
                     <div className={style.div2}>
                         <img className={style.image} src={videogames[0].imagen} alt={videogames.nombre} />
-                        <p className={style.description}>Descripción: {videogames[0].descripcion}</p>
+                        <p className={style.description}>Description: {videogames[0].descripcion}</p>
                     </div>
                 </div>
                 <h1 className={style.h1}>Games like {videogames[0].nombre}</h1>
