@@ -11,7 +11,7 @@ const Landing = () => {
       </svg>
       <h1 className={style.title}>Welcome to Videogames-PI</h1>
       <p className={style.subtitle}>
-        Created & Designed for <a href="https://www.linkedin.com/in/assietta/" className={style.link} target="_blank">Jeremias Brussino</a>
+        Created & Designed for <a href="https://www.linkedin.com/in/assietta/" className={style.link} target="_blank" rel="noreferrer">Jeremias Brussino</a>
       </p>
       <div className={style.imagecontainer}>
         <img src={imagen} alt="Imagen 1" />

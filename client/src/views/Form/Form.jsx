@@ -133,19 +133,19 @@ const handleSubmit = (event) => {
         setFormSubmitted(false); // Actualiza el estado si hay algún error al crear el formulario
         console.log('Error to create the videogame:', error);
       });
-    console.log(videogamesData);
-    
-    formRef.current.reset();
-    setInput({
-      nombre: '',
-      imagen: '',
-      descripcion: '',
-      plataformas: '',
-      fechaLanzamiento: '',
-      rating: 0.00,
-      genero: [],
-    });
-    setErrorMessages({
+      console.log(videogamesData);
+      
+      formRef.current.reset();
+      setInput({
+        nombre: '',
+        imagen: '',
+        descripcion: '',
+        plataformas: '',
+        fechaLanzamiento: '',
+        rating: 0.00,
+        genero: [],
+      });
+      setErrorMessages({
         nombre: '',
         imagen: '',
         rating: '',
@@ -153,7 +153,7 @@ const handleSubmit = (event) => {
         plataformas: '',
         genero: [],
       });
-  };
+    };
 
   
 const isValidUrl = (url) => {

@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 export const GET_VIDEOGAMES = "GET_VIDEOGAMES"
+export const GET_NEWVIDEOGAMES = "GET_NEWVIDEOGAMES"
 export const GET_GENRES = 'GET_GENRES'
 export const GET_NAME = 'GET_NAME'
 export const GET_ID = 'GET_ID'
@@ -23,6 +24,13 @@ export function getVideogames(){
             console.error("Error while getting videogames:", error);
         }
     }
+}
+
+export function getNewVideogames(payload){
+  return {
+    type: GET_NEWVIDEOGAMES,
+    payload
+  }
 }
 
 export function getGenres(){
@@ -49,18 +57,6 @@ export const getName = (name) => {
   
 
 export function getID(id){
-    // return async function (dispatch){
-    //     try {
-    //         const response = await axios.get(`/videogame/${id}`);
-    //         dispatch({
-    //             type: GET_ID,
-    //             payload: response.data
-    //         })
-    //         console.log(response)
-    //     } catch (error) {
-    //         console.error("Error while getting types:", error);
-    //     }
-    // };
     return {
         type: GET_ID,
         payload: id,

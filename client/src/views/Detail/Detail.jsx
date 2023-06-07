@@ -16,7 +16,6 @@ const Detail = () => {
     
 
     if (videogames.length > 0) {
-        const videogame = videogames[0];
         return (
             <div className={style.videogamesdetail}>
                 <div className={style.container}>
