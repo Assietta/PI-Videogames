@@ -21,6 +21,7 @@ export default function Card({ id, nombre, descripcion, plataformas, fechaLanzam
                   <span key={genero} className={style.tipo}>{genero}</span>
                ))}
             </div>
+            <p className={style.name}>Rating: {rating}</p>
       </Link>
       </div>
    );
